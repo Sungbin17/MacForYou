@@ -1,0 +1,51 @@
+from beereview.models import Beer, BeerType, Production_Company
+
+beertype1 = BeerType(name="Pale Ale", description="Pale Ale Description here")
+beertype2 = BeerType(name="IPA", description="IPA is based on India")
+beertype3 = BeerType(name="Pilsner", description="Pilsner color golden")
+beertype4 = BeerType(name="Lager", description="Yes Thats it, It is CASS type")
+beertype5 = BeerType(name="Weizen", description="It is German Style")
+beertype6 = BeerType(name="Stout", description="Guinnese")
+
+beertype1.save()
+beertype2.save()
+beertype3.save()
+beertype4.save()
+beertype5.save()
+beertype6.save()
+
+BeerType.objects.all()
+
+pdc1 = Production_Company(name="Lotte", description="sucks...")
+pdc2 = Production_Company(name="HEINEKEN", description="love Heienken")
+pdc3 = Production_Company(name="ABInBev", description="major player in BEER industry")
+pdc4 = Production_Company(name="SAB Miller", description="another giant company in BEER")
+
+pdc1.save()
+pdc2.save()
+pdc3.save()
+pdc4.save()
+
+Production_Company.objects.all()
+
+beertypeforbeer = BeerType.objects.get(name="Lager")
+beercompany = Production_Company.objects.get(name="Lotte")
+beer1 = Beer(name="Fitz", nation="Korea", abv =4.6, calorie=60, description = "soso", beertype = beertypeforbeer, company = beercompany)
+
+beertypeforbeer = BeerType.objects.get(name="Pale Ale")
+beercompany = Production_Company.objects.get(name="HEINEKEN")
+beer2 = Beer(name="HEINEKEN", nation="Dutch", abv =4.8, calorie=55, description = "quiet good", beertype = beertypeforbeer, company = beercompany)
+
+beertypeforbeer = BeerType.objects.get(name="Pilsner")
+beercompany = Production_Company.objects.get(name="ABInBev")
+beer3 = Beer(name="Stella Artois", nation="Czech", abv =5.0, calorie=30, description = "good pilsner", beertype = beertypeforbeer, company = beercompany)
+
+beertypeforbeer = BeerType.objects.get(name="IPA")
+beercompany = Production_Company.objects.get(name="SAB Miller")
+beer4 = Beer(name="Miller", nation="USA", abv =5.0, calorie=30, description = "well it is not IPA but...", beertype = beertypeforbeer, company = beercompany)
+
+
+beer1.save()
+beer2.save()
+beer3.save()
+beer4.save()
