@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^recommendations/', include("recommendations.urls", namespace="recommendations")),
     url(r'^accounts/', include("accounts.urls")),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^beer/', include("beereview.urls", namespace="beereview")),
 ]
