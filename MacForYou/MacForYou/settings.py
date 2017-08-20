@@ -114,8 +114,8 @@ SITE_ID=1
 
 ### 로그인 관련 ###
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/post'
-LOGOUT_REDIRECT_URL = '/post'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'auth.User'
 
