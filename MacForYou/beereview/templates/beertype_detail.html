@@ -1,0 +1,10 @@
+<h1>{{ object.name }}</h1>
+<p> {{ object.description }}</p>
+
+{% if beertype_beers_list %}
+<ul>
+{% for beer in beertype_beers_list %}
+	<li> {{ beer.name }}</li>
+{% endfor %}
+</ul>
+{% endif %}
