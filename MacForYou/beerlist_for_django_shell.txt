@@ -6,6 +6,8 @@ beertype3 = BeerType(name="Pilsner", description="Pilsner color golden")
 beertype4 = BeerType(name="Lager", description="Yes Thats it, It is CASS type")
 beertype5 = BeerType(name="Weizen", description="It is German Style")
 beertype6 = BeerType(name="Stout", description="Guinnese")
+beertype7 = BeerType(name="Pale Lager", description="later")
+beertype8 = BeerType(name="Premium Lager", description="later")
 
 beertype1.save()
 beertype2.save()
@@ -13,6 +15,8 @@ beertype3.save()
 beertype4.save()
 beertype5.save()
 beertype6.save()
+beertype7.save()
+beertype8.save()
 
 BeerType.objects.all()
 
@@ -20,13 +24,21 @@ pdc1 = Production_Company(name="Lotte", description="sucks...")
 pdc2 = Production_Company(name="HEINEKEN", description="love Heienken")
 pdc3 = Production_Company(name="ABInBev", description="major player in BEER industry")
 pdc4 = Production_Company(name="SAB Miller", description="another giant company in BEER")
+pdc5 = Production_Company(name="Singapore Brewery", description="singapore")
+pdc6 = Production_Company(name="Boon Rawd Brewery", description="Thail")
+pdc7 = Production_Company(name="Taiwan Tobacco and Liquor Corp", description="Taiwan")
 
 pdc1.save()
 pdc2.save()
 pdc3.save()
 pdc4.save()
+pdc5.save()
+pdc6.save()
+pdc7.save()
+
 
 Production_Company.objects.all()
+
 
 beertypeforbeer = BeerType.objects.get(name="Lager")
 beercompany = Production_Company.objects.get(name="Lotte")
@@ -44,11 +56,26 @@ beertypeforbeer = BeerType.objects.get(name="IPA")
 beercompany = Production_Company.objects.get(name="SAB Miller")
 beer4 = Beer(name="Miller", nation="USA", abv =5.0, calorie=30, description = "well it is not IPA but...", beertype = beertypeforbeer, company = beercompany)
 
+beertypeforbeer = BeerType.objects.get(name="Pale Lager")
+beercompany = Production_Company.objects.get(name="Singapore Brewery")
+beer5 = Beer(name="Tiger", nation="Singapore", abv =5.0, calorie=30, description = "singapore pride", beertype = beertypeforbeer, company = beercompany)
+
+beertypeforbeer = BeerType.objects.get(name="Premium Lager")
+beercompany = Production_Company.objects.get(name="Boon Rawd Brewery")
+beer6 = Beer(name="SingHA", nation="Thailand", abv =5.0, calorie=30, description = "thailand pride", beertype = beertypeforbeer, company = beercompany)
+
+beertypeforbeer = BeerType.objects.get(name="Pale Lager")
+beercompany = Production_Company.objects.get(name="Taiwan Tobacco and Liquor Corp")
+beer7 = Beer(name="Taiwan Beer Gold Medal", nation="Taiwan", abv =5.0, calorie=30, description = "taiwan pride", beertype = beertypeforbeer, company = beercompany)
+
 
 beer1.save()
 beer2.save()
 beer3.save()
 beer4.save()
+beer5.save()
+beer6.save()
+beer7.save()
 
 br1 = BeerReview(user="david", overall_score=3.5, comment="very good", beer=beer1)
 br2 = BeerReview(user="james", overall_score=5, comment="quiet good", beer=beer1)
