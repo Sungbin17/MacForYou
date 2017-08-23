@@ -4,7 +4,6 @@ from django.db import models
 class BeerType(models.Model):
 	name				= models.CharField(max_length=50, unique=True)
 	description			= models.TextField()
-	#related_beers		= models.???? OneToMany is needed
 	timestamp			= models.DateTimeField(auto_now_add=True)
 	updated				= models.DateTimeField(auto_now=True)
 
@@ -14,7 +13,6 @@ class BeerType(models.Model):
 class Production_Company(models.Model):
 	name				= models.CharField(max_length=50, unique=True)
 	description			= models.TextField()
-	#related_beers		= models.???? OneToMany is needed
 	timestamp			= models.DateTimeField(auto_now_add=True)
 	updated				= models.DateTimeField(auto_now=True)
 
@@ -24,14 +22,30 @@ class Production_Company(models.Model):
 class Beer(models.Model):
 	name 				= models.CharField(max_length=50, unique=True)
 	nation				= models.CharField(max_length=50)
-	abv					= models.DecimalField(max_digits=4, decimal_places=2)
+	abv				= models.DecimalField(max_digits=4, decimal_places=2)
 	calorie				= models.SmallIntegerField(default=43)
 	description			= models.TextField(default='BEER Description HERE')
 	beertype			= models.ForeignKey(BeerType, on_delete=models.SET_NULL, null=True,  related_name='beertype_beers')
 	company				= models.ForeignKey(Production_Company, on_delete=models.SET_NULL, null=True,  related_name='production_beers')
-	#reviews				= models.ManyToManyField()
+	reviews_count			= models.IntegerField(default=0)
+	#reviews				= models.ManyToManyField(BeerReview)
 	timestamp			= models.DateTimeField(auto_now_add=True)
 	updated				= models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.name
+
+	# def reviews_count_up(self):
+	# 	self.reviews_count = self.reviews_count + 1
+	# 	super(Beer, self).save()
+
+class BeerReview(models.Model):
+	user 				= models.CharField(max_length=30)
+	overall_score			= models.DecimalField(max_digits=2, decimal_places=1)
+	beer				= models.ForeignKey(Beer, on_delete=models.CASCADE, related_name='beer_reviews')
+	comment				= models.TextField()
+	timestamp			= models.DateTimeField(auto_now_add=True)
+	updated				= models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.comment

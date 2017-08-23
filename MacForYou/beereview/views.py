@@ -17,6 +17,7 @@ class BeerDetailView(DetailView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(BeerDetailView, self).get_context_data(*args, **kwargs)
+		context['beer_reviews'] = context['object'].beer_reviews.all()
 		return context
 
 class BeerTypeDetailView(DetailView):

@@ -4,3 +4,12 @@
 <p> {{ object.calorie }} kcal </p>
 <p> {{ object.beertype.name }} </p>
 <p> {{ object.description }}</p>
+
+{% if beer_reviews %}
+<p> Reviewed </p>
+<ul>
+{% for review in beer_reviews %}
+	<li> {{review.user}} said that this beer is {{ review.comment }}</li>
+{% endfor %}
+</ul>
+{% endif %}
