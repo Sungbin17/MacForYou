@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     url(
         regex=r"^$",
-        view=views.recommendation_create,
+        view=views.suggestions_create,
         name="create"
     )
 ]

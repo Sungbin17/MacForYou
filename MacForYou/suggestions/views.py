@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
-from .forms import RecommendationModelForm
+from .forms import SuggestionModelForm
 # Create your views here.
 
-def recommendation_create(request):
+def suggestions_create(request):
     form=RecommendationModelForm(request.POST or None)
     if form.is_valid():
         form.save()
         return redirect("/post/")
     else:
-        form=RecommendationModelForm()
+        form=SuggestionModelForm()
     content={
         'form':form,
     }
-    response = render(request, 'recommendation/recommendation_list.html', content)
+    response = render(request, 'suggestions/suggestions_list.html', content)
     return response
