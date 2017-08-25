@@ -3,10 +3,10 @@ from .forms import SuggestionModelForm
 # Create your views here.
 
 def suggestions_create(request):
-    form=RecommendationModelForm(request.POST or None)
+    form=SuggestionModelForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect("/post/")
+        return redirect("/")
     else:
         form=SuggestionModelForm()
     content={
