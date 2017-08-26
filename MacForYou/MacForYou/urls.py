@@ -16,12 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from beereview.views import BeerDetailView, BeerTypeDetailView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^suggestions/', include("suggestions.urls", namespace="suggestions")),
     url(r'^accounts/', include("accounts.urls")),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^beer/', include("beereview.urls", namespace="beereview")),
+    url(r'^beer/(?P<slug>[\w-]+)/$',BeerDetailView.as_view()),
+    url(r'^beertype/(?P<slug>[\w-]+)/$',BeerTypeDetailView.as_view()),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^community/', include('community.urls')),
 ]
