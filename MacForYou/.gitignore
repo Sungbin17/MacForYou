@@ -13,9 +13,10 @@ __pycache__
 *.sqlite3
 *.zip
 
-
+secrets.json
 
 .idea/
+.idea/*
 .ipynb_checkpoints/
 *.ipynb
 
