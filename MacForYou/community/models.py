@@ -5,6 +5,7 @@ from django.utils import timezone
 
 
 class Party(models.Model):
+
 	preferred_beer= models.CharField(max_length=200)
 	age= models.CharField(max_length=200)
 	place= models.CharField(max_length=200)

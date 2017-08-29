@@ -23,14 +23,12 @@ def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
     except KeyError:
-        print('adfadsf')
         error_msg = "Set the {0} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -42,7 +40,6 @@ SECRET_KEY = 'swanhr!%76$@6n=9l)24)+g=4i5c%-#nc)7b$rdar+6^m3)l9h'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -98,18 +95,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MacForYou.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
-DATABASES = get_secret('DBConfig')
+# DATABASES = get_secret('DBConfig')
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -129,33 +125,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':
-       {'METHOD': 'oauth2',
-        'SCOPE': ['email','public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request: 'kr_KR',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.4'}}
+         {'METHOD': 'oauth2',
+          'SCOPE': ['email', 'public_profile', 'user_friends'],
+          'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+          'FIELDS': [
+              'id',
+              'email',
+              'name',
+              'first_name',
+              'last_name',
+              'verified',
+              'locale',
+              'timezone',
+              'link',
+              'gender',
+              'updated_time'],
+          'EXCHANGE_TOKEN': True,
+          'LOCALE_FUNC': lambda request: 'kr_KR',
+          'VERIFIED_EMAIL': False,
+          'VERSION': 'v2.4'}}
 
 SOCIAL_AUTH_FACEBOOK_KEY = '145441949376213'  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET ='a245ee08e4eb9dbea3ced7ec4e7b8983' #app key
+SOCIAL_AUTH_FACEBOOK_SECRET = 'a245ee08e4eb9dbea3ced7ec4e7b8983'  # app key
 
-SITE_ID=1
+SITE_ID = 1
 
 ### 로그인 관련 ###
 LOGIN_URL = '/accounts/login'
@@ -180,11 +175,18 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT=os.path.join(BASE_DIR,'static')
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '..', 'MacForYou', 'static'),
+    os.path.join(BASE_DIR, '..', 'accounts', 'static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'staticfiles')
+
+# STATIC_ROOT=os.path.join(BASE_DIR,'static')
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
