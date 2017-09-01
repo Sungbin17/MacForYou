@@ -15,20 +15,36 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.shortcuts import render
+from django.conf.urls.static import static
+from django.conf import settings
+
+
 from beereview.views import BeerDetailView, BeerTypeDetailView
+
+# def root(request):
+#     return render(request, 'root.html')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    # url(r'^$', root, name='root'),
     url(r'^suggestions/', include("suggestions.urls", namespace="suggestions")),
     url(r'^accounts/', include("accounts.urls")),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^beer/(?P<slug>[\w-]+)/$',BeerDetailView.as_view()),
-    url(r'^beertype/(?P<slug>[\w-]+)/$',BeerTypeDetailView.as_view()),
+    url(r'^beer/(?P<slug>[\w-]+)/$', BeerDetailView.as_view()),
+    url(r'^beertype/(?P<slug>[\w-]+)/$', BeerTypeDetailView.as_view()),
+    url(r'^reviews/', include('beereview.urls', namespace='reviews')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^community/', include('community.urls')),
+
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
