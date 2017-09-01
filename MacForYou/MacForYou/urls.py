@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 from beereview.views import BeerDetailView, BeerTypeDetailView
 
@@ -27,4 +29,6 @@ urlpatterns = [
     url(r'^beertype/(?P<slug>[\w-]+)/$',BeerTypeDetailView.as_view()),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^community/', include('community.urls')),
-]
+] 
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

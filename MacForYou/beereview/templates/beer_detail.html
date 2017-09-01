@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
   <style type="text/css">
@@ -9,7 +10,7 @@
     margin-right: 1.5em;
   }
   .main.container {
-    margin-top: 7em;
+    margin-top: 5em;
   }
 /*  .wireframe {
     margin-top: 2em;
@@ -48,10 +49,10 @@
         Calorie: {{ object.calorie }} kcal
      </div>
      <div class="meta">
-        ABV : {{ object.abv }} %
+        ABV: {{ object.abv }} %
      </div>
      <div class="meta">
-     	<span>Rating</span>
+     	<span>Rating: </span>
      	<div class="ui star rating review result" data-rating="3" data-max-rating="5"></div>
      </div>     
      <div class="meta">
@@ -65,7 +66,7 @@
 </div>
 
 <div class="ui comments">
-  <h3 class="ui dividing header">Comments</h3>
+  <h3 class="ui dividing header">Reviews</h3>
   <div class="comment">
     <a class="avatar">
       <img src="/images/avatar/small/matt.jpg">
@@ -136,6 +137,40 @@
       </div>
     </div>
   </div>
+    <div class="comment">
+    <a class="avatar">
+      <img src="/images/avatar/small/joe.jpg">
+    </a>
+    <div class="content">
+      <a class="author">Joe Henderson</a>
+      <div class="metadata">
+        <span class="date">5 days ago</span>
+      </div>
+      <div class="text">
+        Dude, this is awesome. Thanks so much
+      </div>
+      <div class="actions">
+        <a class="reply">Reply</a>
+      </div>
+    </div>
+  </div>
+    <div class="comment">
+    <a class="avatar">
+      <img src="/images/avatar/small/joe.jpg">
+    </a>
+    <div class="content">
+      <a class="author">Joe Henderson</a>
+      <div class="metadata">
+        <span class="date">5 days ago</span>
+      </div>
+      <div class="text">
+        Dude, this is awesome. Thanks so much
+      </div>
+      <div class="actions">
+        <a class="reply">Reply</a>
+      </div>
+    </div>
+  </div>
   <form class="ui reply form">
     <div class="field">
       <textarea></textarea>
@@ -147,17 +182,53 @@
 </div>
 </div>
 
-
+<!-- <div class="ui vertical divider"></div> -->
 <div class="six wide column">
-<p>as;dlkfja;oifhnas;clkjfa;sdifj</p>
+<div class="ui raised segment">
+  <h3> Other Beer Recom</h3>
+<!--   <img class="ui medium circular image" src="/images/wireframe/square-image.png">
+  <img class="ui medium circular image" src="/images/wireframe/square-image.png">
+  <img class="ui medium circular image" src="/images/wireframe/square-image.png">
+  <img class="ui medium circular image" src="/images/wireframe/square-image.png"> -->
+  <div class="ui doubling cards">
+   <div class="ui orange centered card">
+    <div class="image">
+      <img class="ui small circular image" src="{% static 'a.jpg' %}">
+    </div>
+    <div class="extra">
+      Rating:
+      <div class="ui star rating" data-rating="4"></div>
+    </div>
+  </div>
+  <div class="ui orange centered card">
+    <div class="image">
+      <img class="ui small circular image" src="{% static 'a.jpg' %}">
+    </div>
+    <div class="extra">
+      Rating:
+      <div class="ui star rating" data-rating="4"></div>
+    </div>
+  </div>
+  <div class="ui orange centered card">
+    <div class="image">
+      <img class="ui small circular image" src="{% static 'a.jpg' %}">
+    </div>
+    <div class="extra">
+      Rating:
+      <div class="ui star rating" data-rating="4"></div>
+    </div>
+  </div>
+ </div>
+ </div>
 </div>
-{% if beer_reviews %}
+
+<!-- {% if beer_reviews %}
 <p> Reviewed </p>
 <ul>
 {% for review in beer_reviews %}
 	<li> {{review.user}} said that this beer is {{ review.comment }}</li>
 {% endfor %}
 </ul>
-{% endif %}
+{% endif %} -->
 
 {% endblock content %}
