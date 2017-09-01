@@ -1,10 +1,14 @@
 from django.shortcuts import redirect, get_object_or_404, render
-from .models import Party, Choice
-from django.http import HttpResponseRedirect, HttpResponse
+from .models import Party, Choice, Likes
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.urls import reverse
 from django.template import loader
 from .forms import PartyModelForm, ChoiceModelForm
 from django.views import generic
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+import json
+
 
 # Create your views here.
 
@@ -71,5 +75,12 @@ def choice_create(request):
 	}
 	response = render(request, 'community/choice_form.html', content)
 	return response
+
+@login_required # TODO: Ajax로 처리하기
+def party_likes(request, pk):
+    party = get_object_or_404(Party, pk=pk)
+    # 중간자 모델 Like 를 사용하여, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다.
+    post_likes, post_likes_created = party.likes_set.get_or_create(user=request.user)
+    return redirect('/community')
 
 
