@@ -56,16 +56,16 @@ def review_list(request):
 
     return render(request, 'beereview/beereview_list.html', context)
 
-def review_detail(request, pk):
 
+def review_detail(request, pk):
     review = get_object_or_404(BeerReview, pk=pk)
     context = {
         'review': review
     }
     return render(request, 'beereview/beereview_detail.html', context)
 
-def review_create(request):
 
+def review_create(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
@@ -81,17 +81,18 @@ def review_create(request):
     }
     return render(request, 'beereview/beereview_create.html', context)
 
+
 def review_edit(request, pk):
     review = get_object_or_404(BeerReview, pk=pk)
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES,instance=review)
+        form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
             form.save()
             return redirect('reviews:review_detail', pk)
-    else :
+    else:
         initial = {
             'overall_score': review.overall_score,
             'beer': review.beer.id,
