@@ -19,3 +19,4 @@ class PartyAdmin(admin.ModelAdmin):
 	list_display=('title','pub_date')
 
 admin.site.register(Party, PartyAdmin)
+

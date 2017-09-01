@@ -9,8 +9,9 @@ class Party(models.Model):
 	content= models.TextField()
 	preferred_beer= models.CharField(max_length=200)
 	place= models.CharField(max_length=200)
-	date_meeting= models.DateTimeField('date meeting')
-	pub_date= models.DateTimeField('date published')
+	date_meeting= models.CharField(max_length=200)
+	pub_date= models.CharField(max_length=200)
+
 
 	def __str__(self):
 		return self.title
