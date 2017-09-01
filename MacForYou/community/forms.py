@@ -6,3 +6,8 @@ class PartyModelForm(forms.ModelForm):
     class Meta:
         model = Party
         fields = ['title', 'content', 'preferred_beer', 'place', 'date_meeting', 'pub_date']
+
+class ChoiceModelForm(forms.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ['party', 'choice_text',]

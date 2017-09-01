@@ -3,7 +3,7 @@ from .models import Party, Choice
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.template import loader
-from .forms import PartyModelForm
+from .forms import PartyModelForm, ChoiceModelForm
 from django.views import generic
 
 # Create your views here.
@@ -50,7 +50,7 @@ def party_create(request):
 	form=PartyModelForm(request.POST or None)
 	if form.is_valid():
 		form.save()
-		return redirect("/community/")
+		return redirect("/community/choice_create")
 	else:
 		form=PartyModelForm()
 	content={
@@ -58,4 +58,18 @@ def party_create(request):
 	}
 	response = render(request, 'community/party_form.html', content)
 	return response
+
+def choice_create(request):
+	form=ChoiceModelForm(request.POST or None)
+	if form.is_valid():
+		form.save()
+		return redirect("/community/")
+	else:
+		form=ChoiceModelForm()
+	content={
+		'form':form,
+	}
+	response = render(request, 'community/choice_form.html', content)
+	return response
+
 

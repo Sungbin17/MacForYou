@@ -8,4 +8,5 @@ urlpatterns = [
 	url(r'^(?P<party_id>[0-9]+)/results/$', views.results, name='results'),
 	url(r'^(?P<party_id>[0-9]+)/vote/$', views.vote, name='vote'),
 	url(r'^create$', views.party_create, name='create'),
+	url(r'^choice_create$', views.choice_create, name='choice_create'),
 ]
