@@ -56,16 +56,61 @@ def review_list(request):
 
     return render(request, 'beereview/beereview_list.html', context)
 
+def review_detail(request, pk):
+
+    review = get_object_or_404(BeerReview, pk=pk)
+    context = {
+        'review': review
+    }
+    return render(request, 'beereview/beereview_detail.html', context)
+
 def review_create(request):
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
-        form.save()
-        return redirect('reviews:review_list')
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            return redirect('reviews:review_list')
     else:
         form = ReviewForm()
 
     context = {
-        'form' : form
+        'form': form
     }
     return render(request, 'beereview/beereview_create.html', context)
+
+def review_edit(request, pk):
+    review = get_object_or_404(BeerReview, pk=pk)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, request.FILES,instance=review)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.save()
+            return redirect('reviews:review_detail', pk)
+    else :
+        initial = {
+            'overall_score': review.overall_score,
+            'beer': review.beer.id,
+            'comment': review.comment
+        }
+        form = ReviewForm(initial=initial)
+
+    context = {
+        'form': form,
+        'review': review
+    }
+    return render(request, 'beereview/beereview_edit.html', context)
+
+
+def review_delete(request, pk):
+    review = get_object_or_404(BeerReview, pk=pk)
+
+    if review.user_id != request.user.id:
+        return redirect('reviews:reviews_detail', pk)
+    else:
+        review.delete()
+        return redirect('reviews:review_list')

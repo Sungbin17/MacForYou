@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 # Create your models here.
@@ -48,7 +49,7 @@ class Beer(models.Model):
 
 
 class BeerReview(models.Model):
-    user = models.CharField(max_length=30)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     overall_score = models.DecimalField(max_digits=2, decimal_places=1)
     beer = models.ForeignKey(Beer, on_delete=models.CASCADE, related_name='beer_reviews')
     comment = models.TextField()

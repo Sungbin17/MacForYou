@@ -3,10 +3,13 @@
 
 {% for review in reviews %}
 
+
     <p>
+        <a href="{% url 'reviews:review_detail' review.id%}">
         {{ review.user }}
         {{ review.overall_score }}
         {{ review.comment }}
+        </a>
 
     </p>
 

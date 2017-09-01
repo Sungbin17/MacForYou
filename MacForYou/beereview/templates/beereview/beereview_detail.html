@@ -1,0 +1,19 @@
+
+
+
+
+
+    <p> 맥주이름 : {{ review.beer.name }} </p>
+    <p> 평균점수 : {{ review.beer.abv }} </p>
+    <p> 칼로리 : {{ review.beer.calorie }} </p>
+
+    <p>작성자 : {{ review.user }} </p>
+
+    <p>점수 : {{ review.overall_score }} </p>
+    <p>코멘트 : {{ review.comment }} </p>
+
+
+
+<p><a href="{% url 'reviews:review_list' %}">리스트로</a></p>
+<p><a href="{% url 'reviews:review_edit' review.id %}"> 수정 </a></p>
+<p><a href="{% url 'reviews:review_delete' review.id %}"> 삭제 </a></p>
