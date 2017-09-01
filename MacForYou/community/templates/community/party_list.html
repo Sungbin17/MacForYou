@@ -3,7 +3,6 @@
 
     {% for party in party_list %}
 
-        <p><a>{{party.preferred_beer}}</a></p>
+        <li><a href="{% url 'community:party_detail' party.id %}">{{ party.title }}</a></li>
 
     {% endfor %}
-
