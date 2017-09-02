@@ -81,6 +81,6 @@ def party_likes(request, pk):
     party = get_object_or_404(Party, pk=pk)
     # 중간자 모델 Like 를 사용하여, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다.
     post_likes, post_likes_created = party.likes_set.get_or_create(user=request.user)
-    return redirect('/community')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

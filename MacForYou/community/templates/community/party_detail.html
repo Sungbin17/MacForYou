@@ -20,4 +20,5 @@
 {% endfor %}
 <input type="submit" value="Vote" />
 </form>
-<a class="badge badge-primary" href="{% url 'community:party_likes' party.pk %}">{{ party.likes_user_set.count }} like{{ party.likes_user_set.count|pluralize }}</a>
+<a class="badge badge-primary" href="{% url 'community:party_likes' party.pk %}">{{ party.likes_user_set.count }} 참가{{ party.likes_user_set.count|pluralize }}</a>
+{{party.likes_user_set.all}}
