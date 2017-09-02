@@ -16,7 +16,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 
 	<!--- under this needs to go to bottom line -->
-	<script type="text/javascript"> $('.ui.star.rating.review.result').rating('disable'); </script>
+	{% block custom_script %}
+	{% endblock custom_script %}
 	
 </body>
 </html>

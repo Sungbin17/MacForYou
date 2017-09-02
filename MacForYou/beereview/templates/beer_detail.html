@@ -172,11 +172,12 @@
     </div>
   </div>
   <form class="ui reply form">
-    <div class="field">
+<!--     <div class="field">
       <textarea></textarea>
-    </div>
-    <div class="ui blue labeled submit icon button">
-      <i class="icon edit"></i> Add Reply
+    </div> -->
+    <br/>
+    <div class="ui blue labeled submit icon button" id="Review_Write_Btn">
+      <i class="icon edit"></i> Write Review
     </div>
   </form>
 </div>
@@ -190,7 +191,7 @@
   <img class="ui medium circular image" src="/images/wireframe/square-image.png">
   <img class="ui medium circular image" src="/images/wireframe/square-image.png">
   <img class="ui medium circular image" src="/images/wireframe/square-image.png"> -->
-  <div class="ui doubling cards">
+  <div class="ui cards">
    <div class="ui orange centered card">
     <div class="image">
       <img class="ui small circular image" src="{% static 'a.jpg' %}">
@@ -222,6 +223,42 @@
  </div>
 </div>
 
+<div class="ui tiny modal">
+  <div class="header"> Modal Test Header </div>
+  <div class="content">
+    <form class="ui reply form">
+      <label>Rating</label>
+      <div class="ui selection dropdown">
+          <input name="Rating" type="hidden">
+          <i class="dropdown icon"></i>
+          <div class="default text">Rating</div>
+          <div class="menu">
+              <div class="item" data-value="1"><i class="star icon"></i>1</div>
+              <div class="item" data-value="1.5"><i class="star icon"></i><i class="star half empty icon"></i>1.5</div>
+          </div>
+      </div>
+      <p></p>
+      <div class="field">
+        <textarea rows="3"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div class="ui red cancel inverted button">Cancel</div>
+    <div class="ui green ok approve inverted button">SEND</div>
+  </div>
+</div>
+
+<!-- <div class="ui selection dropdown">
+  <input name="Rating" type="hidden">
+  <i class="dropdown icon"></i>
+  <div class="default text">Rating</div>
+  <div class="menu">
+      <div class="item" data-value="1"><i class="empty star icon"></i>1</div>
+      <div class="item" data-value="0">2</div>
+  </div>
+</div> -->
+
 <!-- {% if beer_reviews %}
 <p> Reviewed </p>
 <ul>
@@ -232,3 +269,15 @@
 {% endif %} -->
 
 {% endblock content %}
+
+{% block custom_script %}
+  <script type="text/javascript"> 
+    $('.ui.star.rating.review.result').rating('disable');   
+    $("#Review_Write_Btn").click(function(){
+      // $('.tiny.modal').modal({ blurring: true }).modal('show');
+      $('.tiny.modal').modal('show');
+      $('.ui.selection.dropdown').dropdown();
+    });
+    // $('.ui.selection.dropdown').dropdown();
+  </script>
+{% endblock custom_script %}
