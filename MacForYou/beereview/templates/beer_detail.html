@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %}
+{% block custom_css_for_page %}
   <style type="text/css">
   body {
     background-color: #FFFFFF;
@@ -10,7 +10,7 @@
     margin-right: 1.5em;
   }
   .main.container {
-    margin-top: 5em;
+    margin-top: 3em;
   }
 /*  .wireframe {
     margin-top: 2em;
@@ -20,18 +20,10 @@
     padding: 5em 0em;
   }*/
   </style>
+{% endblock custom_css_for_page %}
 
-<!--   <div class="ui four column doubling stackable grid main container">
-  <div class="twelve wide column">
-    <p>asdfafasdf</p>
-    <p>qeaertsedfas</p>
-  </div>
+{% block content %}
 
-  <div class="column">
-    <p>asdfawefasdfafg</p>
-    <p>asdfqawetasdefa</p>
-  </div>
- </div> -->
 <div class="ui eight column doubling stackable grid main container">
 <div class="ten wide column">
 <div class="ui items">
@@ -59,7 +51,7 @@
      	<span>Description</span>
      </div>   
      <div class="description">
-     	<p>{{ object.description }}</p>
+     	<p style="word-break: break-all;">{{ object.description }}a;sklfjq;awoeikfja;sldofj;aoiefh;lksdha;jkdfh;qalwuoehfa;lsjkhfa;lsjkhf;awoiefjh;aosikjf;aowiejf;alksdjf;alsjkhfalisudhfoaliwujhfblaksjdhfalisdufhalscjxbvnlzxkjchbvaliudsghflaiwjehfbalksdjhfalsidufhoqlaiwuehflaksjdbvalksdjhvaliujehfalkjwdfbnlaksjdhvalopiudshvlakjwebflaikudgvlasjkdhfnqlawejdfhalskdjcxvbnalkieujhfaldkjfhlakjefhalweujhflakj</p>
      </div>
     </div>
   </div>
@@ -80,7 +72,7 @@
         How artistic!
       </div>
       <div class="actions">
-        <a class="reply">Reply</a>
+        <a class="reply">Modify</a>
       </div>
     </div>
   </div>
@@ -97,10 +89,10 @@
         <p>This has been very useful for my research. Thanks as well!</p>
       </div>
       <div class="actions">
-        <a class="reply">Reply</a>
+        <a class="reply">Modify</a>
       </div>
     </div>
-    <div class="comments">
+<!--     <div class="comments">
       <div class="comment">
         <a class="avatar">
           <img src="/images/avatar/small/jenny.jpg">
@@ -118,7 +110,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="comment">
     <a class="avatar">
@@ -133,7 +125,7 @@
         Dude, this is awesome. Thanks so much
       </div>
       <div class="actions">
-        <a class="reply">Reply</a>
+        <a class="reply">Modify</a>
       </div>
     </div>
   </div>
@@ -150,7 +142,7 @@
         Dude, this is awesome. Thanks so much
       </div>
       <div class="actions">
-        <a class="reply">Reply</a>
+        <a class="reply">Modify</a>
       </div>
     </div>
   </div>
@@ -167,7 +159,7 @@
         Dude, this is awesome. Thanks so much
       </div>
       <div class="actions">
-        <a class="reply">Reply</a>
+        <a class="reply">Modify</a>
       </div>
     </div>
   </div>

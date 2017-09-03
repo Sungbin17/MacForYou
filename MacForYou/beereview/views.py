@@ -46,6 +46,11 @@ class BeerTypeDetailView(DetailView):
 # 		print(instance.beertype_beers.all())
 # 		return HttpResponse('debuging')
 
+class IndexView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, 'index.html', context)
+
 
 def review_list(request):
     reviews = BeerReview.objects.filter()
