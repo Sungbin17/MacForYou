@@ -39,7 +39,6 @@ class BeerTypeDetailView(DetailView):
 
 
 # class BeerTypeDetailView(View):
-
 # 	def get(self, request, *args, **kwargs):
 # 		name = 'lager'
 # 		instance = get_object_or_404(BeerType, name__iexact=name)
@@ -51,10 +50,15 @@ class IndexView(View):
         context = {}
         return render(request, 'index.html', context)
 
+class BeerListView(View):
+    def get(self, request, *args, **kwargs):
+        context={}
+        return render(request, 'beer_list.html', context)
+
 
 def review_list(request):
     reviews = BeerReview.objects.filter()
-
+    print('hey')
     context = {
         'reviews': reviews
     }
