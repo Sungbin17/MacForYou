@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-from beereview.views import BeerDetailView, BeerTypeDetailView, IndexView
+from beereview.views import BeerDetailView, BeerTypeDetailView, IndexView, BeerListView
 
 # def root(request):
 #     return render(request, 'root.html')
@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^suggestions/', include("suggestions.urls", namespace="suggestions")),
     url(r'^accounts/', include("accounts.urls")),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^beer/full_list/$', BeerListView.as_view()),
     url(r'^beer/(?P<slug>[\w-]+)/$', BeerDetailView.as_view()),
     url(r'^beertype/(?P<slug>[\w-]+)/$', BeerTypeDetailView.as_view()),
     url(r'^reviews/', include('beereview.urls', namespace='reviews')),

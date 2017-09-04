@@ -168,9 +168,15 @@
       <textarea></textarea>
     </div> -->
     <br/>
+    {% if user.is_authenticated %}
     <div class="ui blue labeled submit icon button" id="Review_Write_Btn">
       <i class="icon edit"></i> Write Review
     </div>
+    {% else %}
+     <div class="ui blue labeled submit icon button" id="Login_to_Write_Btn">
+      <i class="icon edit"></i> Login to Write Review
+    </div>
+    {% endif %}
   </form>
 </div>
 </div>
@@ -269,6 +275,9 @@
       // $('.tiny.modal').modal({ blurring: true }).modal('show');
       $('.tiny.modal').modal('show');
       $('.ui.selection.dropdown').dropdown();
+    });
+    $("#Login_to_Write_Btn").click(function(){
+      window.location.href='/accounts/login';
     });
     // $('.ui.selection.dropdown').dropdown();
   </script>
