@@ -12,11 +12,10 @@ class PartyAdmin(admin.ModelAdmin):
 		(None,		{'fields': ['preferred_beer']}),
 		(None,		{'fields': ['place']}),
 		(None,		{'fields': ['date_meeting']}),
-		('Date information', {'fields': ['pub_date'],'classes':['collapse']}),
 	]
 	inlines=[ChoiceInline]
 
-	list_display=('title','pub_date')
+	list_display=('title',)
 
 admin.site.register(Party, PartyAdmin)
 

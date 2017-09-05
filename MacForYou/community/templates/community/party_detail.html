@@ -8,7 +8,7 @@
 		<li>선호하는 맥주: {{ party.preferred_beer }}</li>
 		<li>모임 장소: {{ party.place }}</li>
 		<li>만나는 날짜 및 시간: {{ party.date_meeting }}</li>
-		<li>게시글 올린 날짜: {{ party.pub_date }}</li>
+		<li>게시글 올린 날짜: {{party.created_at}}</li>
 
 <p>참가하려면 눌러주세요</p>
 
@@ -84,57 +84,8 @@
 </html>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
-<title>Login Demo - Kakao JavaScript SDK</title>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-</head>
-<body>
-<a id="kakao-login-btn"></a>
-<a href="http://alpha-developers.kakao.com/logout"></a>
-<script type='text/javascript'>
-//<![CDATA[
- // Set JavaScript Key of current app.
- Kakao.init('5b57cce0a257e95f7f73571ae07f9316');
- // Create Kakao Login button.
- Kakao.Auth.createLoginButton({
-   container: '#kakao-login-btn',
-   success: function(authObj) {
-     alert(JSON.stringify(authObj));
-   },
 
-   fail: function(err) {
-      alert(JSON.stringify(err));
-   }
- });
 
-//]]>
-</script>
-
-<script>
-  window.kakaoAsyncInit = function () {
-    Kakao.init('5b57cce0a257e95f7f73571ae07f9316');
-    Kakao.Story.createShareButton({
-      container: '#kakaostory-share-button'
-    });
-  };
-
-  (function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//developers.kakao.com/sdk/js/kakao.story.min.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'kakao-js-sdk'));
-</script>
-<div id="kakaostory-share-button" data-url="https://github.com/Sungbin17/MacForYou"></div>
-
-</body>
-</html>
 
 
 <div id=518406051828571></div>
@@ -146,5 +97,22 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<div class="fb-share-button" data-href="https://github.com/Sungbin17/MacForYou" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://github.com/Sungbin17/MacForYou">공유하기</a></div>
 
+
+
+{% with "facebook" as service %}
+<a href="http://www.facebook.com/share.php?u={{ host }}{{ page_url }}&amp;t={{ title }}" target="_blank" title=" {{ share_txt }} {{ service }}">
+     <img src="http://carlosvin.alwaysdate.net/templates/img/fb.png" alt="{{ share_txt }} {{ service }}"/>
+ </a>
+ {% endwith %}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10&appId=145441949376213";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">공유하기</a></div>

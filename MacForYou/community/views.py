@@ -8,12 +8,12 @@ from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import json
-
+from django.template import *
 
 # Create your views here.
 
 def party_view(request):
-	party_list = Party.objects.order_by('-pub_date')[:]
+	party_list = Party.objects.order_by('-created_at')[:]
 	context = {'party_list': party_list}
 	response = render(request, 'community/party_list.html', context)
 	return response
@@ -46,15 +46,15 @@ def vote(request, party_id):
 		# user hits the Back button.
 		return HttpResponseRedirect(reverse('community:results', args=(party.id,)))
 
-def results(request, party_id):
+'''def results(request, party_id):
 	party = get_object_or_404(Party, pk=party_id)
-	return render(request, 'community/results.html', {'party': party})
+	return render(request, 'community/results.html', {'party': party})'''
 
 def party_create(request):
 	form=PartyModelForm(request.POST or None)
 	if form.is_valid():
 		form.save()
-		return redirect("/community/choice_create")
+		return redirect("/community")
 	else:
 		form=PartyModelForm()
 	content={
@@ -63,7 +63,7 @@ def party_create(request):
 	response = render(request, 'community/party_form.html', content)
 	return response
 
-def choice_create(request):
+'''def choice_create(request):
 	form=ChoiceModelForm(request.POST or None)
 	if form.is_valid():
 		form.save()
@@ -74,7 +74,7 @@ def choice_create(request):
 		'form':form,
 	}
 	response = render(request, 'community/choice_form.html', content)
-	return response
+	return response'''
 
 @login_required # TODO: Ajax로 처리하기
 def party_likes(request, pk):
@@ -84,3 +84,10 @@ def party_likes(request, pk):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+def home(request):
+    return render_to_response('home.html', {}, context_instance=RequestContext(request))
+
+def get_current_path(request):
+    return {
+       'current_path': request.get_full_path()
+     }

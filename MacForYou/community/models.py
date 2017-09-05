@@ -1,10 +1,11 @@
 from django.db import models
 import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-
+from django.forms import DateTimeField
 
 class Party(models.Model):
     title= models.CharField(max_length=200)
@@ -12,7 +13,6 @@ class Party(models.Model):
     preferred_beer= models.CharField(max_length=200)
     place= models.CharField(max_length=200)
     date_meeting= models.CharField(max_length=200)
-    pub_date= models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     likes_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,
@@ -24,12 +24,7 @@ class Party(models.Model):
     def __str__(self):
         return self.title
         
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
-    was_published_recently.admin_order_field = 'pub_date'
-    was_published_recently.boolean = True
-    was_published_recently.short_description = 'Published recently?'
+
 
 class Choice(models.Model):
     party = models.ForeignKey(Party, on_delete=models.CASCADE)
