@@ -45,5 +45,5 @@ beereview/beer_detail2.html
 
 {% for recom_beer in recom_beers %}
     <p>beer name : {{ recom_beer.name }}</p>
-    <p>beer star : {{ recom_beer.abv|floatformat }}</p>
+    <p>beer star : {{ recom_beer.overall_score|floatformat }}</p>
 {% endfor %}
