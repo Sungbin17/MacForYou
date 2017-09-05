@@ -5,7 +5,7 @@
 
 
     <p>
-        <a href="{% url 'reviews:review_detail' review.id%}">
+        <a href="{% url 'beers:review_detail' review.id%}">
         {{ review.user }}
         {{ review.overall_score }}
         {{ review.comment }}
@@ -18,4 +18,4 @@
 
 
 
-<a href="{% url 'reviews:review_create' %}">create</a>
+<a href="{% url 'beers:review_create' %}">create</a>

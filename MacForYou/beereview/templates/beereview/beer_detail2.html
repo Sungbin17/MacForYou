@@ -1,0 +1,49 @@
+beereview/beer_detail2.html
+
+<h2>Beer Detail</h2>
+
+
+{{ beer.name }}
+{{ beer.nation }}
+
+{{ beer_score_full }}
+{{ beer_score_star }}
+
+{{ beer.description }}
+
+<hr>
+
+<h2> Review lists </h2>
+
+{% for review in review_list %}
+
+
+    <p>username: {{ review.user.username }}</p>
+    <p>overallscore : {{ review.overall_score }}</p>
+    <p>updated: {{ review.updated | date:"Y.m.d"}}</p>
+
+
+    <p>img: {{ review.user.img_url }}</p>
+    <p>idx : {{ review.user_id }}</p>
+
+{#    {% if request.user.id != review.user_id %}#}
+{#        False#}
+{#    {% else %}#}
+{#        True#}
+{#    {% endif %}#}
+    <hr>
+{% endfor %}
+
+{% for modifiable in review_modifiable %}
+    <p>{{ modifiable}}</p>
+{% endfor %}
+
+<hr>
+
+
+<h2>Other Beer Recom</h2>
+
+{% for recom_beer in recom_beers %}
+    <p>beer name : {{ recom_beer.name }}</p>
+    <p>beer star : {{ recom_beer.abv|floatformat }}</p>
+{% endfor %}

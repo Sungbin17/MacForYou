@@ -1,0 +1,42 @@
+beereview/beer_type.html
+
+
+<p>beer type name / {{ beer_type.name }}</p>
+<p>beer type desc / {{ beer_type.description }}</p>
+<p>img / {{ beer_type.img_url }}</p>
+
+
+
+
+<h2>Related Beer List</h2>
+
+{% for related_beer in related_beers %}
+    <p>beer name : {{ related_beer.name }}</p>
+    <p>beer score : {{ related_beer.abv|floatformat:2 }}</p>
+    <p>beer score star : {{ related_beer.abv|floatformat:1 }}</p>
+
+{% endfor %}
+
+<hr>
+
+
+<h2>Related Beer Review</h2>
+
+{% for related_review in related_reviews %}
+    <p>beer name {{ related_review.beer.name }}</p>
+    <p>review overallscore : {{ related_review.overall_score|floatformat:2 }}</p>
+    <p>review overallscore star : {{ related_review.overall_score|floatformat:1 }}</p>
+    <p>review comment : {{ related_review.comment }}</p>
+
+    <hr>
+{% endfor %}
+
+
+<hr>
+
+<h2>Recom Type</h2>
+{% for recom_type in recom_types %}
+    <p>name : {{ recom_type.name }}</p>
+    <p>img : {{ recom_type.img.url }}</p>
+{% endfor %}
+
