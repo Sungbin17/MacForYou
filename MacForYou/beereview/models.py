@@ -39,6 +39,7 @@ class Beer(models.Model):
     reviews_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    overall_score = models.DecimalField(max_digits=2, decimal_places=1)
 
     def __str__(self):
         return self.name

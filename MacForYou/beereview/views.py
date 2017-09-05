@@ -139,11 +139,9 @@ def beer_detail(request, pk):
 
 def review_list(request):
     reviews = BeerReview.objects.filter()
-    print('hey')
     context = {
         'reviews': reviews
     }
-
     return render(request, 'beereview/beereview_list.html', context)
 
 
