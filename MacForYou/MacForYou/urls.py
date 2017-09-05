@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^beer/full_list/$', BeerListView.as_view()),
     url(r'^beer/(?P<slug>[\w-]+)/$', BeerDetailView.as_view()),
     url(r'^beertype/(?P<slug>[\w-]+)/$', BeerTypeDetailView.as_view()),
-    url(r'^reviews/', include('beereview.urls', namespace='reviews')),
+    url(r'^beers/', include('beereview.urls', namespace='beers')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^community/', include('community.urls')),
     url(r'^$', IndexView.as_view()),
