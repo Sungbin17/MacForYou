@@ -88,23 +88,7 @@
 
 
 
-<div id=518406051828571></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10&appId=145441949376213";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
-
-
-
-{% with "facebook" as service %}
-<a href="http://www.facebook.com/share.php?u={{ host }}{{ page_url }}&amp;t={{ title }}" target="_blank" title=" {{ share_txt }} {{ service }}">
-     <img src="http://carlosvin.alwaysdate.net/templates/img/fb.png" alt="{{ share_txt }} {{ service }}"/>
- </a>
- {% endwith %}
 
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -115,4 +99,20 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">공유하기</a></div>
+<div class="fb-share-button" data-href="http://www.naver.com" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="http://www.naver.com">공유하기</a></div>
+
+
+<p>http://localhost:8000/community/{{party.id}}</p>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10&appId=518406051828571";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div class="fb-comments" data-href="http://localhost:8000/community/{{party.id}}" data-numposts="5"></div>

@@ -150,6 +150,7 @@ AUTH_USER_MODEL = 'auth.User'
 
 # 이메일 확인을 하지 않음
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'optional'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email','phone','name']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

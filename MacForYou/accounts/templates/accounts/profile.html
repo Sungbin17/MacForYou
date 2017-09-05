@@ -4,8 +4,8 @@
     <ul class="list-group">
         <li class="list-group-item list-group-item-info text-center"><b>MacForYou Profile</b></li>
         <li class="list-group-item">이름 : {{ user.username }}</li>
-        <li class="list-group-item">제보 점수 : {{ user.cp_user.score }}</li>
-        <li class="list-group-item">제보 개수 : {{ user.cp_user.number_of_posts }}</li>
+        <li class="list-group-item"> : {{ user.name }}</li>
+        <li class="list-group-item"> : {{ user.phone }}</li>
         <li class="list-group-item">마지막 로그인 시간: {{ user.date_joined }}</li>
     </ul>
 {% endblock %}
