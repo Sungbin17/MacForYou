@@ -121,12 +121,18 @@ def beer_detail(request, slug):
             modifiable.append(True)
 
     if request.method == 'POST':
-        pass
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            return redirect('beers:beer_detail', slug)
 
     else:
-        pass
+        form = ReviewForm()
 
     context = {
+        'form': form,
         'beer': beer,
         'beer_score_full': score_full,
         'beer_score_star': score_star,
