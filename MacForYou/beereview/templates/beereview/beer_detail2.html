@@ -20,6 +20,7 @@ beereview/beer_detail2.html
 
     <p>username: {{ review.user.username }}</p>
     <p>overallscore : {{ review.overall_score }}</p>
+    <p>comment : {{ review.comment }}</p>
     <p>updated: {{ review.updated | date:"Y.m.d"}}</p>
 
 
@@ -47,3 +48,18 @@ beereview/beer_detail2.html
     <p>beer name : {{ recom_beer.name }}</p>
     <p>beer star : {{ recom_beer.overall_score|floatformat }}</p>
 {% endfor %}
+
+
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+
+
+    <input type="submit">
+</form>
+
+<a href="{% url 'beers:review_create' %}">리뷰쓰기</a>
