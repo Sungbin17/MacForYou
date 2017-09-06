@@ -47,3 +47,8 @@ beereview/beer_detail2.html
     <p>beer name : {{ recom_beer.name }}</p>
     <p>beer star : {{ recom_beer.overall_score|floatformat }}</p>
 {% endfor %}
+
+
+
+
+<a href="{% url 'beers:review_create' %}">리뷰쓰기</a>

@@ -66,13 +66,14 @@ class BeerListView(View):
 
 
 
-def beer_type(request, pk):
-    beer_type = get_object_or_404(BeerType, pk=pk)
-    related_beers = Beer.objects.filter(beertype_id=pk)
-    related_reviews = BeerReview.objects.select_related('beer__beertype').filter(beer__beertype_id=pk).order_by('-updated') # 관련 리뷰 업데이트순으로
+def beer_type(request, slug):
+    beer_type = get_object_or_404(BeerType, name__iexact=slug)
+
+    related_beers = Beer.objects.filter(name__iexact=slug)
+    related_reviews = BeerReview.objects.select_related('beer__beertype').filter(beer__beertype__name__iexact=slug).order_by('-updated') # 관련 리뷰 업데이트순으로
 
 
-    recom_type = BeerType.objects.exclude(pk=pk)
+    recom_type = BeerType.objects.exclude(name__iexact=slug)
     # 현재 접근한 타입을 제외한 다른 모든 타입을 가져온뒤
 
     recom_idx = []
@@ -97,13 +98,11 @@ def beer_type(request, pk):
 
 
 
-def beer_detail(request, pk):
-    beer = get_object_or_404(Beer, pk=pk)
-    review_list = BeerReview.objects.filter(beer_id=pk)
-    recom_beers = Beer.objects.exclude(pk=pk).order_by('-updated')[:3]
+def beer_detail(request, slug):
+    beer = get_object_or_404(Beer, name__iexact=slug)
+    review_list = BeerReview.objects.filter(beer_id=beer.id)
+    recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:3]
 
-
-    print(recom_beers)
 
 
 
@@ -121,7 +120,12 @@ def beer_detail(request, pk):
         else:
             modifiable.append(True)
 
-    print(modifiable)
+    if request.method == 'POST':
+        pass
+
+    else:
+        pass
+
     context = {
         'beer': beer,
         'beer_score_full': score_full,
