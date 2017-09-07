@@ -90,10 +90,10 @@ def beer_type(request, slug):
         'related_beers': related_beers,
         'related_reviews': related_reviews,
         'recom_types': recom_type,
-
     }
-
-    return render(request, 'beereview/beer_type.html', context)
+    
+    # return render(request, 'beereview/beer_type.html', context)
+    return render(request, 'beertype_detail.html', context)
 
 
 
@@ -102,8 +102,6 @@ def beer_detail(request, slug):
     beer = get_object_or_404(Beer, name__iexact=slug)
     review_list = BeerReview.objects.filter(beer_id=beer.id)
     recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:3]
-
-
 
 
     score_full = round(beer.abv, 2) # 값이 하나기때문에 뷰에서 반올림
@@ -140,11 +138,10 @@ def beer_detail(request, slug):
         'review_list': review_list,
         'review_modifiable': modifiable,
         'recom_beers':recom_beers,
-
-
     }
-    return render(request, 'beereview/beer_detail2.html', context)
 
+    # return render(request, 'beereview/beer_detail2.html', context)
+    return render(request, 'beer_detail.html', context)
 
 
 def review_list(request):

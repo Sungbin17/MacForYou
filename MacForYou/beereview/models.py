@@ -40,6 +40,7 @@ class Beer(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     overall_score = models.DecimalField(max_digits=2, decimal_places=1)
+    ### comment from ljh that overall_score need to have default value of 3 or 0
 
     def __str__(self):
         return self.name
@@ -56,6 +57,7 @@ class BeerReview(models.Model):
     comment = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    ### comment from ljh that for better management review needs to have deleted boolean value and when it is deleted.
 
     def __str__(self):
         return self.comment

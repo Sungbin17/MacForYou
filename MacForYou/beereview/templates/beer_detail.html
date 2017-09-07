@@ -23,7 +23,6 @@
 {% endblock custom_css_for_page %}
 
 {% block content %}
-
 <div class="ui eight column doubling stackable grid main container">
 <div class="ten wide column">
 <div class="ui items">
@@ -31,27 +30,27 @@
     <div class="image">
       <img src="/images/wireframe/image.png">
     </div>
-    <div class="content">
-     <a class="header">{{ object.name }}</a>
-     <div class="extra"> {{ object.nation }} <i class="kr flag"></i></div>
+    <div class="content">     
+     <a class="header">{{ beer.name }}</a>
+     <div class="extra"> {{ beer.nation }} <i class="kr flag"></i></div>
      <div class="extra">
-        Type: {{ object.beertype.name }}
+        Type: {{ beer.beertype.name }}
      </div>
      <div class="extra">
-        Calorie: {{ object.calorie }} kcal
+        Calorie: {{ beer.calorie }} kcal
      </div>
      <div class="meta">
-        ABV: {{ object.abv }} %
+        ABV: {{ beer.abv }} %
      </div>
      <div class="meta">
-     	<span>Rating: </span>
-     	<div class="ui star rating review result" data-rating="3" data-max-rating="5"></div>
+     	<span>Rating: {{ beer_score_full }} </span>
+     	<div class="ui star rating review result" data-rating="{{ beer_score_star }}" data-max-rating="5"></div>
      </div>     
      <div class="meta">
      	<span>Description</span>
      </div>   
      <div class="description">
-     	<p style="word-break: break-all;">{{ object.description }}a;sklfjq;awoeikfja;sldofj;aoiefh;lksdha;jkdfh;qalwuoehfa;lsjkhfa;lsjkhf;awoiefjh;aosikjf;aowiejf;alksdjf;alsjkhfalisudhfoaliwujhfblaksjdhfalisdufhalscjxbvnlzxkjchbvaliudsghflaiwjehfbalksdjhfalsidufhoqlaiwuehflaksjdbvalksdjhvaliujehfalkjwdfbnlaksjdhvalopiudshvlakjwebflaikudgvlasjkdhfnqlawejdfhalskdjcxvbnalkieujhfaldkjfhlakjefhalweujhflakj</p>
+     	<p style="word-break: break-all;">{{ beer.description }}</p>
      </div>
     </div>
   </div>
@@ -59,7 +58,34 @@
 
 <div class="ui comments">
   <h3 class="ui dividing header">Reviews</h3>
-  <div class="comment">
+  {% for review in review_list %}
+    <div class="comment">
+      <a class="avatar">
+        <img src="/images/avatar/small/matt.jpg">
+      </a>
+      <div class="content">
+        <a class="author">{{ review.user }}</a>
+        <div class="metadata">
+          <span class="date">{{ review.updated}}</span>
+          <!-- <span class="date">Today at 5:42PM</span> -->          
+        </div>
+        <div class="text">
+          {{ review.comment }}
+        </div>
+      </div>
+      {% if user == review.user %}
+      <div class="actions">
+        <a class="reply">Modify</a>
+      </div>
+      {% else %}
+      <div class="actions">
+        <a class="reply"> </a>
+      </div>
+      {% endif %}
+      
+    </div>
+  {% endfor %}
+  <!-- <div class="comment">
     <a class="avatar">
       <img src="/images/avatar/small/matt.jpg">
     </a>
@@ -75,98 +101,9 @@
         <a class="reply">Modify</a>
       </div>
     </div>
-  </div>
-  <div class="comment">
-    <a class="avatar">
-      <img src="/images/avatar/small/elliot.jpg">
-    </a>
-    <div class="content">
-      <a class="author">Elliot Fu</a>
-      <div class="metadata">
-        <span class="date">Yesterday at 12:30AM</span>
-      </div>
-      <div class="text">
-        <p>This has been very useful for my research. Thanks as well!</p>
-      </div>
-      <div class="actions">
-        <a class="reply">Modify</a>
-      </div>
-    </div>
-<!--     <div class="comments">
-      <div class="comment">
-        <a class="avatar">
-          <img src="/images/avatar/small/jenny.jpg">
-        </a>
-        <div class="content">
-          <a class="author">Jenny Hess</a>
-          <div class="metadata">
-            <span class="date">Just now</span>
-          </div>
-          <div class="text">
-            Elliot you are always so right :)
-          </div>
-          <div class="actions">
-            <a class="reply">Reply</a>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  </div>
-  <div class="comment">
-    <a class="avatar">
-      <img src="/images/avatar/small/joe.jpg">
-    </a>
-    <div class="content">
-      <a class="author">Joe Henderson</a>
-      <div class="metadata">
-        <span class="date">5 days ago</span>
-      </div>
-      <div class="text">
-        Dude, this is awesome. Thanks so much
-      </div>
-      <div class="actions">
-        <a class="reply">Modify</a>
-      </div>
-    </div>
-  </div>
-    <div class="comment">
-    <a class="avatar">
-      <img src="/images/avatar/small/joe.jpg">
-    </a>
-    <div class="content">
-      <a class="author">Joe Henderson</a>
-      <div class="metadata">
-        <span class="date">5 days ago</span>
-      </div>
-      <div class="text">
-        Dude, this is awesome. Thanks so much
-      </div>
-      <div class="actions">
-        <a class="reply">Modify</a>
-      </div>
-    </div>
-  </div>
-    <div class="comment">
-    <a class="avatar">
-      <img src="/images/avatar/small/joe.jpg">
-    </a>
-    <div class="content">
-      <a class="author">Joe Henderson</a>
-      <div class="metadata">
-        <span class="date">5 days ago</span>
-      </div>
-      <div class="text">
-        Dude, this is awesome. Thanks so much
-      </div>
-      <div class="actions">
-        <a class="reply">Modify</a>
-      </div>
-    </div>
-  </div>
-  <form class="ui reply form">
-<!--     <div class="field">
-      <textarea></textarea>
-    </div> -->
+  </div> -->
+
+  <div class="ui reply form">
     <br/>
     {% if user.is_authenticated %}
     <div class="ui blue labeled submit icon button" id="Review_Write_Btn">
@@ -177,7 +114,7 @@
       <i class="icon edit"></i> Login to Write Review
     </div>
     {% endif %}
-  </form>
+  </div>
 </div>
 </div>
 
@@ -190,16 +127,25 @@
   <img class="ui medium circular image" src="/images/wireframe/square-image.png">
   <img class="ui medium circular image" src="/images/wireframe/square-image.png"> -->
   <div class="ui cards">
+   {% for recom_beer in recom_beers %}
    <div class="ui orange centered card">
     <div class="image">
       <img class="ui small circular image" src="{% static 'a.jpg' %}">
     </div>
-    <div class="extra">
-      Rating:
-      <div class="ui star rating" data-rating="4"></div>
+    <div class="content">
+      <a class="header" href="#" style="font-size: 1.18571429em;">{{ recom_beer.name }}</a>
+      <div class="meta">
+        <a>Rating: {{ recom_beer.overall_score }}</a>
+        <div class="ui star rating recom" data-rating="{{ recom_beer.overall_score|floatformat:"0" }}" data-max-rating="5"></div>
+      </div>
     </div>
-  </div>
-  <div class="ui orange centered card">
+<!--     <div class="extra">
+      {{ recom_beer.name }}, Rating: {{ recom_beer.overall_score }}
+      <div class="ui star rating" data-rating="4"></div>
+    </div> -->
+   </div>
+   {% endfor %}
+<!--   <div class="ui orange centered card">
     <div class="image">
       <img class="ui small circular image" src="{% static 'a.jpg' %}">
     </div>
@@ -216,8 +162,8 @@
       Rating:
       <div class="ui star rating" data-rating="4"></div>
     </div>
+  </div> -->
   </div>
- </div>
  </div>
 </div>
 
@@ -231,8 +177,16 @@
           <i class="dropdown icon"></i>
           <div class="default text">Rating</div>
           <div class="menu">
+              <div class="item" data-value="0.5"><i class="star half empty icon"></i>0.5</div>
               <div class="item" data-value="1"><i class="star icon"></i>1</div>
               <div class="item" data-value="1.5"><i class="star icon"></i><i class="star half empty icon"></i>1.5</div>
+              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i>2</div>
+              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>2.5</div>
+              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>3</div>
+              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>3.5</div>
+              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>4</div>
+              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>4</div>
+              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>5</div>
           </div>
       </div>
       <p></p>
@@ -271,6 +225,7 @@
 {% block custom_script %}
   <script type="text/javascript"> 
     $('.ui.star.rating.review.result').rating('disable');   
+    $('.ui.star.rating.recom').rating('disable');
     $("#Review_Write_Btn").click(function(){
       // $('.tiny.modal').modal({ blurring: true }).modal('show');
       $('.tiny.modal').modal('show');
