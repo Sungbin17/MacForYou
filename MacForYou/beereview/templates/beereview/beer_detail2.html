@@ -15,6 +15,7 @@ beereview/beer_detail2.html
 
 <h2> Review lists </h2>
 
+
 {% for review in review_list %}
 
 
@@ -34,6 +35,40 @@ beereview/beer_detail2.html
 {#    {% endif %}#}
     <hr>
 {% endfor %}
+
+{% for paged_review in paged_reviews %}
+
+{{ paged_review.comment }}
+
+{% endfor %}
+
+
+{% if paged_reviews.has_other_pages %}
+        <div class="row justify-content-center pagination">
+            <ul class="pagination">
+                {% if paged_reviews.has_previous %}
+                    <a href="?page={{ paged_reviews.previous_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+                {% for i in paged_reviews.paginator.page_range %}
+                    {% if paged_reviews.number == i %}
+                        <span class="active">{{ i }} <span class="sr-only"></span></span>
+                    {% else %}
+                        <a href="page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if paged_reviews.has_next %}
+                    <a href="page={{ paged_reviews.next_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
+
 
 {% for modifiable in review_modifiable %}
     <p>{{ modifiable}}</p>

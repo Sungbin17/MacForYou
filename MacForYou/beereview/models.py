@@ -44,7 +44,7 @@ class Beer(models.Model):
     reviews_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    overall_score = models.DecimalField(max_digits=3, decimal_places=2)
+    overall_score = models.DecimalField(max_digits=10, decimal_places=9)
     image_avater=StdImageField(upload_to=upload_location,
      variations={'thumbnail': {'width': 32, 'height': 32}})
     image_recommend=StdImageField(upload_to=upload_location,
