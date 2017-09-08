@@ -6,18 +6,49 @@
 	<title>MacForYou</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+	<style type="text/css">
+	  .ui.fluid.icon.input.beer.search {
+			width: 200px;
+	  }
+
+	  @media only screen and (max-width: 767px){
+	  	.ui.fluid.icon.input.beer.search {
+			width: 150px;
+		}
+		.ui.item.navloginout{
+			padding-left: 0px;
+		}
+		.header.item.nav{
+			padding-left: 7px;
+		}
+	  }		
+	</style>
 	{% block custom_css_for_page %}
 	{% endblock custom_css_for_page %}
 </head>
 <body>
-	{% include "nav.html" %}	
+	{% include "nav.html" %}
 	{% block content %} 
 	{% endblock content %}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>		
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 
 	<!--- under this needs to go to bottom line -->
+	<script type="text/javascript">
+	  $(".search.link.icon.nav").click(function(){
+	  	var search_text = $("#beer_search").val();
+	  	var full_search_url = '/beers/search/' + search_text;
+	  	window.location.href=full_search_url;
+	  });
+	  $("#beer_search").keypress(function(e){
+	  	if (e.which == 13){
+	  		$(".search.link.icon.nav").click();
+	  		return false;
+	  	}
+	  });
+
+	</script>
 	{% block custom_script %}
 	{% endblock custom_script %}
 	
