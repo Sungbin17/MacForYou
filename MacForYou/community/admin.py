@@ -12,6 +12,7 @@ class PartyAdmin(admin.ModelAdmin):
 		(None,		{'fields': ['preferred_beer']}),
 		(None,		{'fields': ['place']}),
 		(None,		{'fields': ['date_meeting']}),
+		(None,		{'fields': ['party_beer_image']}),
 	]
 	inlines=[ChoiceInline]
 
