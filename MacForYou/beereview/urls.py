@@ -9,6 +9,8 @@ urlpatterns = [
 
     url(r'^type/(?P<slug>[\w-]+)', views.beer_type, name='beer_type'),
 
+    url(r'^search/(?P<slug>[\w-]+)', views.beer_search, name='beer_search'),
+
     url(r'^(?P<pk>\d+)/edit', views.review_edit, name='review_edit'),
     url(r'^(?P<pk>\d+)/del', views.review_delete,name='review_delete'),
     url(r'^(?P<slug>[\w-]+)/', views.beer_detail, name='beer_detail'),
