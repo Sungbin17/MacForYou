@@ -6,12 +6,24 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.forms import DateTimeField
+from stdimage.models import StdImageField
+
+
+def upload_location(party, filename):
+    filebase, extension=filename.split(".")
+    return "%s/%s.%s" %(party.id, filename, extension)
+
+
+
 
 class Party(models.Model):
     title= models.CharField(max_length=200)
     content= models.TextField()
     preferred_beer= models.CharField(max_length=200)
-    party_beer_image= models.FileField(null=True,blank=True)
+    party_beer_image= StdImageField(upload_to=upload_location,
+     variations={'thumbnail': {'width': 100, 'height': 75}})
+    height_field= models.IntegerField(default=0)
+    width_field= models.IntegerField(default=0)
     place= models.CharField(max_length=200)
     date_meeting= models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)

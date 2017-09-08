@@ -18,6 +18,10 @@
 <a class="badge badge-primary" href="{% url 'community:party_likes' party.pk %}">{{ party.likes_user_set.count }} 참가{{ party.likes_user_set.count|pluralize }}</a>
 {{party.likes_user_set.all}}
 
+<p>{{party.party_beer_image}}</p>
+
+<p><img src="{{party.party_beer_image.url}}" class='img-responsive'/> </p>
+
 
 <!DOCTYPE html>
 <html>

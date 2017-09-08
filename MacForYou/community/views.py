@@ -51,7 +51,7 @@ def vote(request, party_id):
 	return render(request, 'community/results.html', {'party': party})'''
 
 def party_create(request):
-	form=PartyModelForm(request.POST or None)
+	form=PartyModelForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		form.save()
 		return redirect("/community")
