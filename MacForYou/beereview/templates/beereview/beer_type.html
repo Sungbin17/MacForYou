@@ -25,7 +25,7 @@ beereview/beer_type.html
 {% for related_review in related_reviews %}
     <p>beer name {{ related_review.beer.name }}</p>
     <p>review overallscore : {{ related_review.overall_score|floatformat:2 }}</p>
-    <p>review overallscore star : {{ related_review.overall_score|floatformat:1 }}</p>
+
     <p>review comment : {{ related_review.comment }}</p>
 
     <hr>
