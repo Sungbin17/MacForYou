@@ -69,9 +69,12 @@ class BeerListView(View):
 def beer_type(request, slug):
     beer_type = get_object_or_404(BeerType, name__iexact=slug)
 
-    related_beers = Beer.objects.filter(name__iexact=slug)
+    # related_beers = Beer.objects.filter(name__iexact=slug)
+    related_beers = Beer.objects.select_related('beertype').filter(beertype__name__iexact=slug)
     related_reviews = BeerReview.objects.select_related('beer__beertype').filter(beer__beertype__name__iexact=slug).order_by('-updated') # 관련 리뷰 업데이트순으로
 
+    print(slug)
+    print(related_beers)
 
     recom_type = BeerType.objects.exclude(name__iexact=slug)
     # 현재 접근한 타입을 제외한 다른 모든 타입을 가져온뒤
