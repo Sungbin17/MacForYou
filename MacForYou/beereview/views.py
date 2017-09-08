@@ -162,7 +162,10 @@ def review_detail(request, pk):
 @login_required
 @transaction.atomic
 def review_create(request, slug):
+    print(request)
+    print('hey post')
     beer = get_object_or_404(Beer, name__iexact=slug)
+    print(beer)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
