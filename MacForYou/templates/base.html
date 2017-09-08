@@ -35,6 +35,20 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 
 	<!--- under this needs to go to bottom line -->
+	<script type="text/javascript">
+	  $(".search.link.icon.nav").click(function(){
+	  	var search_text = $("#beer_search").val();
+	  	var full_search_url = '/beers/search/' + search_text;
+	  	window.location.href=full_search_url;
+	  });
+	  $("#beer_search").keypress(function(e){
+	  	if (e.which == 13){
+	  		$(".search.link.icon.nav").click();
+	  		return false;
+	  	}
+	  });
+
+	</script>
 	{% block custom_script %}
 	{% endblock custom_script %}
 	
