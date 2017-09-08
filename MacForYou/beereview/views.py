@@ -134,6 +134,14 @@ def beer_detail(request, slug):
     return render(request, 'beer_detail.html', context)
 
 
+def full_list(request):
+    beers = Beer.objects.order_by('-overall_score')[:20]
+    # print(beers)
+    context = {
+        'beer_list': beers
+    }
+    return render(request, 'beer_list.html', context)
+
 def review_list(request):
     reviews = BeerReview.objects.filter()
     context = {

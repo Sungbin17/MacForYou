@@ -50,7 +50,7 @@ beer2 = Beer(name="HEINEKEN", nation="Dutch", abv =4.8, calorie=55, description 
 
 beertypeforbeer = BeerType.objects.get(name="Pilsner")
 beercompany = Production_Company.objects.get(name="ABInBev")
-beer3 = Beer(name="Stella Artois", nation="Czech", abv =5.0, calorie=30, description = "good pilsner", beertype = beertypeforbeer, company = beercompany, overall_score=3)
+beer3 = Beer(name="Stella-Artois", nation="Czech", abv =5.0, calorie=30, description = "good pilsner", beertype = beertypeforbeer, company = beercompany, overall_score=3)
 
 beertypeforbeer = BeerType.objects.get(name="IPA")
 beercompany = Production_Company.objects.get(name="SAB Miller")
@@ -66,7 +66,7 @@ beer6 = Beer(name="SingHA", nation="Thailand", abv =5.0, calorie=30, description
 
 beertypeforbeer = BeerType.objects.get(name="Pale Lager")
 beercompany = Production_Company.objects.get(name="Taiwan Tobacco and Liquor Corp")
-beer7 = Beer(name="Taiwan Beer Gold Medal", nation="Taiwan", abv =5.0, calorie=30, description = "taiwan pride", beertype = beertypeforbeer, company = beercompany, overall_score=3.3)
+beer7 = Beer(name="Taiwan-Beer-Gold-Medal", nation="Taiwan", abv =5.0, calorie=30, description = "taiwan pride", beertype = beertypeforbeer, company = beercompany, overall_score=3.3)
 
 
 beer1.save()
