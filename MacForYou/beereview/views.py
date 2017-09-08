@@ -132,14 +132,14 @@ def beer_detail(request, slug):
         'beer': beer,
         'beer_score_full': score_full,
 
-        'review_list': review_list,
+        # 'review_list': review_list,
         'paged_reviews': paged_reviews,
         'review_modifiable': modifiable,
         'recom_beers': recom_beers,
     }
 
-    return render(request, 'beereview/beer_detail2.html', context)
-    # return render(request, 'beer_detail.html', context)
+    #return render(request, 'beereview/beer_detail2.html', context)
+    return render(request, 'beer_detail.html', context)
 
 
 def beers_list(request):
@@ -224,20 +224,21 @@ def review_edit(request, pk):
 
 
 def review_delete(request, pk):
+    print('hey')
     review = get_object_or_404(BeerReview, pk=pk)
-
-    if review.user_id != request.user.id:
-        return redirect('beers:beers_detail', review.beer.name)
-    else:
-        review.delete()
-        return redirect('beers:beers_list')
+    redirect_name = review.beer.name
+    if request.method == 'POST':
+        if review.user_id == request.user.id:
+            review.delete()
+            # return redirect('beers:beers_list')
+    return redirect('beers:beers_detail', redirect_name)
 
 
 def beer_search(request, slug):
     beers = Beer.objects.filter(name__contains=slug).order_by('-overall_score')
 
     context = {
-        'search_text': slug,
-        'beers': beers
+        'search_text' : slug,
+        'beer_list': beers,
     }
-    return render(request, 'beereview/beereview_search.html', context)
+    return render(request, 'beer_search.html', context)
