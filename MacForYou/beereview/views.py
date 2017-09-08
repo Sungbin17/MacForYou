@@ -219,3 +219,13 @@ def review_delete(request, pk):
     else:
         review.delete()
         return redirect('beers:beers_list')
+
+
+def beer_search(request, slug):
+    beers = Beer.objects.filter(name__contains=slug)
+
+    context = {
+        'search_text' : slug,
+        'beers': beers
+    }
+    return render(request, 'beereview/beereview_search.html', context)
