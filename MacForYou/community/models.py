@@ -11,6 +11,7 @@ class Party(models.Model):
     title= models.CharField(max_length=200)
     content= models.TextField()
     preferred_beer= models.CharField(max_length=200)
+    party_beer_image= models.FileField(null=True,blank=True)
     place= models.CharField(max_length=200)
     date_meeting= models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
