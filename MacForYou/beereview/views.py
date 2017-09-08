@@ -134,7 +134,7 @@ def beer_detail(request, slug):
     return render(request, 'beer_detail.html', context)
 
 
-def full_list(request):
+def beers_list(request):
     beers = Beer.objects.order_by('-overall_score')[:20]
     # print(beers)
     context = {
@@ -195,7 +195,7 @@ def review_edit(request, pk):
             form = form.save(commit=False)
             form.user = request.user
             form.save()
-            return redirect('beers:review_detail', pk)
+            return redirect('beers:beers_detail', review.beer.name)
     else:
         initial = {
             'overall_score': review.overall_score,
@@ -215,7 +215,7 @@ def review_delete(request, pk):
     review = get_object_or_404(BeerReview, pk=pk)
 
     if review.user_id != request.user.id:
-        return redirect('beers:reviews_detail', pk)
+        return redirect('beers:beers_detail', review.beer.name)
     else:
         review.delete()
-        return redirect('beers:review_list')
+        return redirect('beers:beers_list')
