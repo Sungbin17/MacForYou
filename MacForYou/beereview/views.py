@@ -111,9 +111,9 @@ def beer_detail(request, slug):
     score_full = round(beer.abv, 2)  # 값이 하나기때문에 뷰에서 반올림
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(review_list, 2)
+    paginator = Paginator(review_list, 5)
 
-    paged_reviews = None
+    # paged_reviews = None
     try:
         paged_reviews = paginator.page(page)
 
