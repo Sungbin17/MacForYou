@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Beer, BeerType, Production_Company, BeerReview
 import random
 
+from django.db import transaction
+
 
 # ClassBaseView
 
@@ -99,17 +101,12 @@ def beer_type(request, slug):
     return render(request, 'beertype_detail.html', context)
 
 
-
-
 def beer_detail(request, slug):
     beer = get_object_or_404(Beer, name__iexact=slug)
     review_list = BeerReview.objects.filter(beer_id=beer.id)
     recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:3]
 
-
-    score_full = round(beer.abv, 2) # 값이 하나기때문에 뷰에서 반올림
-    score_star = round(beer.abv)
-
+    score_full = round(beer.abv, 2)  # 값이 하나기때문에 뷰에서 반올림
 
     # TODO 쿼리셋을 분해해서 js 오브젝트처럼 값넣기
     modifiable = []
@@ -121,26 +118,16 @@ def beer_detail(request, slug):
         else:
             modifiable.append(True)
 
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = request.user
-            obj.save()
-            return redirect('beers:beer_detail', slug)
-
-    else:
-        form = ReviewForm()
+    form = ReviewForm()
 
     context = {
         'form': form,
         'beer': beer,
         'beer_score_full': score_full,
-        'beer_score_star': score_star,
 
         'review_list': review_list,
         'review_modifiable': modifiable,
-        'recom_beers':recom_beers,
+        'recom_beers': recom_beers,
     }
 
     # return render(request, 'beereview/beer_detail2.html', context)
@@ -163,14 +150,25 @@ def review_detail(request, pk):
     return render(request, 'beereview/beereview_detail.html', context)
 
 
-def review_create(request):
+@login_required
+@transaction.atomic
+def review_create(request, slug):
+    beer = get_object_or_404(Beer, name__iexact=slug)
+
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
+            obj.beer_id = beer.id
             obj.save()
-            return redirect('beers:review_list')
+
+            beer.reviews_count += 1
+            beer.overall_score = (beer.overall_score / beer.reviews_count)
+            beer.save()
+
+            return redirect('beers:beer_detail', slug)
+
     else:
         form = ReviewForm()
 

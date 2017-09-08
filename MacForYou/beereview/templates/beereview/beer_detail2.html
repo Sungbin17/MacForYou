@@ -7,7 +7,7 @@ beereview/beer_detail2.html
 {{ beer.nation }}
 
 {{ beer_score_full }}
-{{ beer_score_star }}
+
 
 {{ beer.description }}
 
@@ -52,7 +52,7 @@ beereview/beer_detail2.html
 
 
 
-<form action="" method="POST">
+<form action="{% url 'beers:review_create' beer.name %}" method="POST">
     {% csrf_token %}
     <table>
         {{ form.as_table }}
@@ -62,4 +62,4 @@ beereview/beer_detail2.html
     <input type="submit">
 </form>
 
-<a href="{% url 'beers:review_create' %}">리뷰쓰기</a>
+<a href="{% url 'beers:review_create' beer.name  %}">리뷰쓰기</a>

@@ -39,7 +39,7 @@ class Beer(models.Model):
     reviews_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    overall_score = models.DecimalField(max_digits=2, decimal_places=1)
+    overall_score = models.DecimalField(max_digits=3, decimal_places=2)
     ### comment from ljh that overall_score need to have default value of 3 or 0
 
     def __str__(self):
