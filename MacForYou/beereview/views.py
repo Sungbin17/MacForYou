@@ -178,6 +178,7 @@ def review_detail(request, pk):
 def review_create(request, slug):
 
     beer = get_object_or_404(Beer, name__iexact=slug)
+    print(beer)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
