@@ -1,8 +1,8 @@
   <div class="ui fixed borderless small menu">
     <div class="ui container">
-      <a href="#" class="header item nav">
+      <a href="/" class="header item nav">
         <img class="logo" src="assets/images/logo.png">
-        Project
+        MacForYou
       </a>
 <!--       <a href="#" class="item">Home</a>
       <div class="ui simple dropdown item">
@@ -33,12 +33,11 @@
           <i class="search link icon nav"></i>
         </div>
       </div>
-    <a class="ui item navloginout">
-      Logout
-    </a>
-<!--       <div class="item">
-        <a class="ui primary basic button">Sign Up</a>
-      </div> -->
+    {% if user.is_authenticated %}
+      <a class="ui item navlogout">Logout</a>
+    {% else %}
+      <a class="ui item navlogin">Login</a>
+    {% endif %}
       </div>
     </div>
   </div>

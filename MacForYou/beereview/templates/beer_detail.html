@@ -133,7 +133,7 @@
       <img class="ui small circular image" src="{% static 'a.jpg' %}">
     </div>
     <div class="content">
-      <a class="header" href="#" style="font-size: 1.18571429em;">{{ recom_beer.name }}</a>
+      <a class="header" href="{% url 'beers:beer_detail' recom_beer.name %}" style="font-size: 1.18571429em;">{{ recom_beer.name }}</a>
       <div class="meta">
         <a>Rating: {{ recom_beer.overall_score }}</a>
         <div class="ui star rating recom" data-rating="{{ recom_beer.overall_score|floatformat:'0' }}" data-max-rating="5"></div>

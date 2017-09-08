@@ -69,8 +69,9 @@ class BeerListView(View):
 
 
 def beer_type(request, slug):
+    print('called')
     beer_type = get_object_or_404(BeerType, name__iexact=slug)
-
+    
     # related_beers = Beer.objects.filter(name__iexact=slug)
     related_beers = Beer.objects.select_related('beertype').filter(beertype__name__iexact=slug)
     related_reviews = BeerReview.objects.select_related('beer__beertype').filter(beer__beertype__name__iexact=slug).order_by('-updated') # 관련 리뷰 업데이트순으로
@@ -84,7 +85,7 @@ def beer_type(request, slug):
     recom_idx = []
     for recom in recom_type:
         recom_idx.append(recom.id)
-    recom_idx = random.sample(recom_idx, 3)
+    recom_idx = random.sample(recom_idx, 2)
     #랜덤함수를 이용하여 인덱스를 임의로 3개 뽑고 recom_idx에 저장
 
     recom_type = BeerType.objects.filter(pk__in=recom_idx)
