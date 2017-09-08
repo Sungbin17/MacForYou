@@ -32,7 +32,6 @@ from beereview.views import BeerDetailView, BeerTypeDetailView, IndexView, BeerL
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^$', root, name='root'),
-    url(r'^suggestions/', include("suggestions.urls", namespace="suggestions")),
     # url(r'^accounts/', include("accounts.urls")),
     url(r'^accounts/', include('allauth.urls')),
     # url(r'^beer/full_list/$', BeerListView.as_view()),
