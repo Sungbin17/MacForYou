@@ -36,15 +36,15 @@
      <div class="extra">
         Type: {{ beer.beertype.name }}
      </div>
-     <div class="extra">
+<!--      <div class="extra">
         Calorie: {{ beer.calorie }} kcal
-     </div>
+     </div> -->
      <div class="meta">
         ABV: {{ beer.abv }} %
      </div>
      <div class="meta">
-     	<span>Rating: {{ beer_score_full }} </span>
-     	<div class="ui star rating review result" data-rating="{{ beer_score_star }}" data-max-rating="5"></div>
+     	<span>Rating: {{ beer.overall_score }} </span>
+     	<div class="ui star rating review result" data-rating="{{ beer.overall_score|floatformat:'0' }}" data-max-rating="5"></div>
      </div>     
      <div class="meta">
      	<span>Description</span>
@@ -136,7 +136,7 @@
       <a class="header" href="#" style="font-size: 1.18571429em;">{{ recom_beer.name }}</a>
       <div class="meta">
         <a>Rating: {{ recom_beer.overall_score }}</a>
-        <div class="ui star rating recom" data-rating="{{ recom_beer.overall_score|floatformat:"0" }}" data-max-rating="5"></div>
+        <div class="ui star rating recom" data-rating="{{ recom_beer.overall_score|floatformat:'0' }}" data-max-rating="5"></div>
       </div>
     </div>
 <!--     <div class="extra">

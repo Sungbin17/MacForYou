@@ -33,19 +33,16 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^$', root, name='root'),
     url(r'^suggestions/', include("suggestions.urls", namespace="suggestions")),
-    url(r'^accounts/', include("accounts.urls")),
+    # url(r'^accounts/', include("accounts.urls")),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^beer/full_list/$', BeerListView.as_view()),
-    url(r'^beer/(?P<slug>[\w-]+)/$', BeerDetailView.as_view()),
+    # url(r'^beer/full_list/$', BeerListView.as_view()),
+    # url(r'^beer/(?P<slug>[\w-]+)/$', BeerDetailView.as_view()),
     url(r'^beertype/(?P<slug>[\w-]+)/$', BeerTypeDetailView.as_view()),
-    url(r'^beers/', include('beereview.urls', namespace='beers')),
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'^beer/', include('beereview.urls', namespace='beers')),
+    # url(r'^accounts/', include('allauth.urls')),
     url(r'^community/', include('community.urls')),
     url(r'^$', IndexView.as_view()),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
