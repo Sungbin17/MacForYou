@@ -50,6 +50,7 @@ class Beer(models.Model):
     image_recommend=StdImageField(upload_to=upload_location,
      variations={'thumbnail': {'width': 270, 'height': 270}})    
     ### comment from ljh that overall_score need to have default value of 3 or 0
+    total_sum = models.DecimalField(max_digits=100, decimal_places=99)
 
     def __str__(self):
         return self.name
