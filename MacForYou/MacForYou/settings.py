@@ -14,6 +14,17 @@ import os
 import json
 from django.core.exceptions import ImproperlyConfigured
 
+# with open("secrets.json") as f:
+#     secrets = json.loads(f.read())
+#
+#
+# # Keep secret keys in secrets.json
+# def get_secret(setting, secrets=secrets):
+#     try:
+#         return secrets[setting]
+#     except KeyError:
+#         error_msg = "Set the {0} environment variable".format(setting)
+#         raise ImproperlyConfigured(error_msg)
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,7 +51,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'suggestions',
     'django.contrib.sites',
     'allauth',
     'allauth.account',

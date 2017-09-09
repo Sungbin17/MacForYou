@@ -9,6 +9,7 @@ from .models import Beer, BeerType, Production_Company, BeerReview
 import random
 
 from django.db import transaction
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # ClassBaseView
@@ -54,26 +55,21 @@ class IndexView(View):
         context = {}
         return render(request, 'index.html', context)
 
+
 class BeerListView(View):
     def get(self, request, *args, **kwargs):
-        context={}
+        context = {}
         return render(request, 'beer_list.html', context)
 
 
-
-
-
-
-
-
-
-
 def beer_type(request, slug):
+    print('called')
     beer_type = get_object_or_404(BeerType, name__iexact=slug)
 
     # related_beers = Beer.objects.filter(name__iexact=slug)
     related_beers = Beer.objects.select_related('beertype').filter(beertype__name__iexact=slug)
-    related_reviews = BeerReview.objects.select_related('beer__beertype').filter(beer__beertype__name__iexact=slug).order_by('-updated') # 관련 리뷰 업데이트순으로
+    related_reviews = BeerReview.objects.select_related('beer__beertype').filter(
+        beer__beertype__name__iexact=slug).order_by('-updated')  # 관련 리뷰 업데이트순으로
 
     print(slug)
     print(related_beers)
@@ -84,8 +80,8 @@ def beer_type(request, slug):
     recom_idx = []
     for recom in recom_type:
         recom_idx.append(recom.id)
-    recom_idx = random.sample(recom_idx, 3)
-    #랜덤함수를 이용하여 인덱스를 임의로 3개 뽑고 recom_idx에 저장
+    recom_idx = random.sample(recom_idx, 2)
+    # 랜덤함수를 이용하여 인덱스를 임의로 3개 뽑고 recom_idx에 저장
 
     recom_type = BeerType.objects.filter(pk__in=recom_idx)
     # 랜덤으로 인덱스를 가져와서 그 값에 해당한 타입을 가져옴
@@ -96,7 +92,7 @@ def beer_type(request, slug):
         'related_reviews': related_reviews,
         'recom_types': recom_type,
     }
-    
+
     # return render(request, 'beereview/beer_type.html', context)
     return render(request, 'beertype_detail.html', context)
 
@@ -107,6 +103,17 @@ def beer_detail(request, slug):
     recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:3]
 
     score_full = round(beer.abv, 2)  # 값이 하나기때문에 뷰에서 반올림
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(review_list, 5)
+
+    try:
+        paged_reviews = paginator.page(page)
+
+    except PageNotAnInteger:
+        paged_reviews = paginator.page(1)
+    except EmptyPage:
+        paged_reviews = paginator.page(paginator.num_pages)
 
     # TODO 쿼리셋을 분해해서 js 오브젝트처럼 값넣기
     modifiable = []
@@ -125,12 +132,13 @@ def beer_detail(request, slug):
         'beer': beer,
         'beer_score_full': score_full,
 
-        'review_list': review_list,
+        # 'review_list': review_list,
+        'paged_reviews': paged_reviews,
         'review_modifiable': modifiable,
         'recom_beers': recom_beers,
     }
 
-    # return render(request, 'beereview/beer_detail2.html', context)
+    #return render(request, 'beereview/beer_detail2.html', context)
     return render(request, 'beer_detail.html', context)
 
 
@@ -141,6 +149,7 @@ def beers_list(request):
         'beer_list': beers
     }
     return render(request, 'beer_list.html', context)
+
 
 def review_list(request):
     reviews = BeerReview.objects.filter()
@@ -162,6 +171,7 @@ def review_detail(request, pk):
 @transaction.atomic
 def review_create(request, slug):
     beer = get_object_or_404(Beer, name__iexact=slug)
+    print(beer)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
@@ -171,8 +181,10 @@ def review_create(request, slug):
             obj.beer_id = beer.id
             obj.save()
 
-            beer.reviews_count += 1
-            beer.overall_score = (beer.overall_score / beer.reviews_count)
+            beer.reviews_count +=1
+            beer.total_sum += obj.overall_score
+
+            beer.overall_score = beer.total_sum / beer.reviews_count
             beer.save()
 
             return redirect('beers:beer_detail', slug)
@@ -212,10 +224,21 @@ def review_edit(request, pk):
 
 
 def review_delete(request, pk):
+    print('hey')
     review = get_object_or_404(BeerReview, pk=pk)
+    redirect_name = review.beer.name
+    if request.method == 'POST':
+        if review.user_id == request.user.id:
+            review.delete()
+            # return redirect('beers:beers_list')
+    return redirect('beers:beers_detail', redirect_name)
 
-    if review.user_id != request.user.id:
-        return redirect('beers:beers_detail', review.beer.name)
-    else:
-        review.delete()
-        return redirect('beers:beers_list')
+
+def beer_search(request, slug):
+    beers = Beer.objects.filter(name__contains=slug).order_by('-overall_score')
+
+    context = {
+        'search_text' : slug,
+        'beer_list': beers,
+    }
+    return render(request, 'beer_search.html', context)
