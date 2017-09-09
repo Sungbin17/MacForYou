@@ -24,9 +24,9 @@
     <div class="item">
       <div class="right floated content">
         <div class="ui star rating review result" data-rating="{{ beer.overall_score|floatformat:'0'}}" data-max-rating="5"></div>
-        <p style="text-align: right;">{{ beer.overall_score }}</p>
-      </div>
-      <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
+        <p style="text-align: right;">{{ beer.overall_score|floatformat:2 }}</p>
+      </div>      
+      <img class="ui avatar image" src="{{ beer.beer_image.avatar.url }}">
       <div class="content">
         <a class="header" href="{% url 'beers:beer_detail' beer.name %}">{{ beer.name }}
         <!-- <div class="ui star rating right review result" data-rating="3" data-max-rating="5"></div> --></a>
