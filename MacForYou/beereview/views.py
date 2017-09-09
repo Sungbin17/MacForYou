@@ -53,7 +53,8 @@ class BeerTypeDetailView(DetailView):
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         context = {}
-        return render(request, 'index.html', context)
+        return redirect('beers:beers_list')
+        # return render(request, 'index.html', context)
 
 
 class BeerListView(View):
