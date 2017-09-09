@@ -82,10 +82,10 @@
       <div class="actions">
         <a class="reply"> </a>
       </div>
-      {% endif %}
-      
+      {% endif %}      
     </div>
   {% endfor %}
+
   <p></p>
   {% if paged_reviews.has_other_pages %}
     <div class="ui pagination menu">      
@@ -187,7 +187,7 @@
  </div>
 </div>
 
-<div class="ui tiny modal">
+<div class="ui tiny modal create_review">
   <div class="header"> Modal Test Header </div>
   <div class="content">
     <form class="ui reply form" id="review_form" action="{% url 'beers:review_create' beer.name %}" method="post">
@@ -204,12 +204,12 @@
               <div class="item" data-value="1"><i class="star icon"></i>1</div>
               <div class="item" data-value="1.5"><i class="star icon"></i><i class="star half empty icon"></i>1.5</div>
               <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i>2</div>
-              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>2.5</div>
-              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>3</div>
-              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>3.5</div>
-              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>4</div>
-              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>4</div>
-              <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>5</div>
+              <div class="item" data-value="2.5"><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>2.5</div>
+              <div class="item" data-value="3"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>3</div>
+              <div class="item" data-value="3.5"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>3.5</div>
+              <div class="item" data-value="4"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>4</div>
+              <div class="item" data-value="4.5"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>4.5</div>
+              <div class="item" data-value="5"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>5</div>
           </div>
         </div>
       </div>
@@ -288,7 +288,7 @@
     $('.ui.star.rating.recom').rating('disable');
     $("#Review_Write_Btn").click(function(){
       // $('.tiny.modal').modal({ blurring: true }).modal('show');
-      $('.tiny.modal').modal('show');
+      $('.tiny.modal.create_review').modal('show');
       $('.ui.selection.dropdown').dropdown();
     });
     $("#review_submit_btn").click(function(){

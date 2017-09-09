@@ -47,11 +47,11 @@ class Beer(models.Model):
     reviews_count = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    overall_score = models.DecimalField(max_digits=10, decimal_places=9)
+    overall_score = models.DecimalField(max_digits=10, decimal_places=9, default=0)
     beer_image=StdImageField(upload_to=beer_img_upload_location, blank=True, variations={'avatar':(32,32), 'main':(270,270)})
     #image_recommend=StdImageField(upload_to=beer_img_upload_location(name), variations={'thumbnail': {'width': 270, 'height': 270}})    
     ### comment from ljh that overall_score need to have default value of 3 or 0
-    total_sum = models.PositiveIntegerField(default=0)
+    total_sum = models.DecimalField(max_digits=30, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
