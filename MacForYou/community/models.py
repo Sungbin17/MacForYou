@@ -7,14 +7,14 @@ from django.utils import timezone
 from django.conf import settings
 from django.forms import DateTimeField
 from stdimage.models import StdImageField
-
+from datetimewidget.widgets import DateTimeWidget
 
 def upload_location(party, filename):
     filebase, extension=filename.split(".")
     return "%s/%s.%s" %(party.id, filename, extension)
 
-
-
+class Now(models.Model):
+    timenow=datetime.datetime.now()
 
 class Party(models.Model):
     title= models.CharField(max_length=200)

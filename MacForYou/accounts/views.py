@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from .forms import UserForm, LoginForm, SignupForm
 from django.contrib.auth.views import login as auth_login
-from allauth.socialaccount.models import SocialApp
+from allauth.socialaccount.models import SocialApp, SocialAccount
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from django.contrib.auth.models import User
 from .models import UserProfiles
@@ -29,6 +29,8 @@ def signup(request):
 
 @login_required
 def profile(request):
+    fb_uid = SocialAccount.objects.get(user_id=request.user.id, provider='facebook')
+    print(fb_uid.uid)
     return render(request,'accounts/profile.html')
 
 def login(request):
