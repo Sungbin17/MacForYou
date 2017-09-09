@@ -33,9 +33,9 @@
     <div class="content">     
      <a class="header">{{ beer.name }}</a>
      <div class="extra"> {{ beer.nation }} <!-- <i class="kr flag"></i> --></div>
-     <div class="extra">
+     <a class="extra" href="{% url 'beers:beer_type' beer.beertype.name %}">
         Type: {{ beer.beertype.name }}
-     </div>
+     </a>
 <!--      <div class="extra">
         Calorie: {{ beer.calorie }} kcal
      </div> -->
@@ -64,12 +64,14 @@
         <img src="/images/avatar/small/matt.jpg">
       </a>
       <div class="content">
-        <a class="author">{{ paged_review.user }}</a>
+        <a class="author">{{ paged_review.user }} ( Score: {{ paged_review.overall_score|floatformat:1 }} )</a>
         <div class="metadata">
           <span class="date">{{ paged_review.updated}}</span>
           <!-- <span class="date">Today at 5:42PM</span> -->          
         </div>
+        
         <div class="text">
+          <!-- <p style="text-align: right;">{{ paged_review.overall_score|floatformat:1 }}</p> -->
           {{ paged_review.comment }}
         </div>
       </div>

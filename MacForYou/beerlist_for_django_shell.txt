@@ -54,7 +54,7 @@ beer3 = Beer(name="Stella-Artois", nation="Czech", abv =5.0, calorie=30, descrip
 
 beertypeforbeer = BeerType.objects.get(name="IPA")
 beercompany = Production_Company.objects.get(name="SAB Miller")
-beer4 = Beer(name="Miller", nation="USA", abv =5.0, calorie=30, description = "well it is not IPA but...", beertype = beertypeforbeer, company = beercompany)
+beer4 = Beer(name="Miller", nation="USA", abv =4.6, calorie=30, description = "well it is not IPA but...", beertype = beertypeforbeer, company = beercompany)
 
 beertypeforbeer = BeerType.objects.get(name="Pale Lager")
 beercompany = Production_Company.objects.get(name="Singapore Brewery")
