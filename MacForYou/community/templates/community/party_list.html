@@ -1,13 +1,20 @@
 <h1>맥주 Party 모임</h1>
 
+<p>{{user.image}}</p>
+
+
 <p><a href="http://localhost:8000/community/create">create</a></p>
 
 
     {% for party in party_list %}
 
-        <li><a href="{% url 'community:party_detail' party.id %}">{{ party.title }}</a> 현재 참가 인원: {{ party.likes_user_set.count }}</li>
+        <li><a href="{% url 'community:party_detail' party.id %}">{{ party.title }}</a> 현재 참가 인원: {{ party.likes_user_set.count }}</li> 
+        <p>{{party.date_meeting}}, {{party.created_at}}</p>
 
     {% endfor %}
+
+
+
 
 
 <div id="fb-root"></div>

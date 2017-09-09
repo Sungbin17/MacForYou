@@ -18,15 +18,15 @@
 {% block content %}
 <div class="ui main container">
   <div class="ui hidden divider""></div>
-  <h3 class="ui dividing header">Top of The List</h3>
+  <h3 class="ui dividing header">Search Result of {{ search_text }}</h3>
   <div class="ui large middle aligned divided list">
     {% for beer in beer_list %}
     <div class="item">
       <div class="right floated content">
         <div class="ui star rating review result" data-rating="{{ beer.overall_score|floatformat:'0'}}" data-max-rating="5"></div>
         <p style="text-align: right;">{{ beer.overall_score|floatformat:2 }}</p>
-      </div>      
-      <img class="ui avatar image" src="{{ beer.beer_image.avatar.url }}">
+      </div>
+      <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
       <div class="content">
         <a class="header" href="{% url 'beers:beer_detail' beer.name %}">{{ beer.name }}
         <!-- <div class="ui star rating right review result" data-rating="3" data-max-rating="5"></div> --></a>

@@ -6,6 +6,9 @@ def upload_location(party, filename):
     filebase, extension=filename.split(".")
     return "%s/%s.%s" %(party.id, filename, extension)
 
+def beer_img_upload_location(name, filename):
+    filebase, extension=filename.split(".")
+    return "%s.%s" %(name, extension)
 
 # Create your models here.
 class BeerType(models.Model):
@@ -45,12 +48,10 @@ class Beer(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     overall_score = models.DecimalField(max_digits=10, decimal_places=9)
-    image_avater=StdImageField(upload_to=upload_location,
-     variations={'thumbnail': {'width': 32, 'height': 32}})
-    image_recommend=StdImageField(upload_to=upload_location,
-     variations={'thumbnail': {'width': 270, 'height': 270}})    
+    beer_image=StdImageField(upload_to=beer_img_upload_location, blank=True, variations={'avatar':(32,32), 'main':(270,270)})
+    #image_recommend=StdImageField(upload_to=beer_img_upload_location(name), variations={'thumbnail': {'width': 270, 'height': 270}})    
     ### comment from ljh that overall_score need to have default value of 3 or 0
-    total_sum = models.DecimalField(max_digits=100, decimal_places=99)
+    total_sum = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

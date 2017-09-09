@@ -9,12 +9,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import json
 from django.template import *
-
+from django.db import models 
+import datetime
 # Create your views here.
 
 def party_view(request):
 	party_list = Party.objects.order_by('-created_at')[:]
 	context = {'party_list': party_list}
+	now = datetime.datetime.now()
 	response = render(request, 'community/party_list.html', context)
 	return response
 

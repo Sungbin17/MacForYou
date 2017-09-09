@@ -28,7 +28,7 @@
 <div class="ui items">
   <div class="item">
     <div class="image">
-      <img src="/images/wireframe/image.png">
+      <img src="{{ beer.beer_image.main.url }}">
     </div>
     <div class="content">     
      <a class="header">{{ beer.name }}</a>
@@ -43,7 +43,7 @@
         ABV: {{ beer.abv }} %
      </div>
      <div class="meta">
-     	<span>Rating: {{ beer.overall_score }} </span>
+     	<span>Rating: {{ beer.overall_score|floatformat:2 }} </span>
      	<div class="ui star rating review result" data-rating="{{ beer.overall_score|floatformat:'0' }}" data-max-rating="5"></div>
      </div>     
      <div class="meta">
@@ -58,25 +58,25 @@
 
 <div class="ui comments">
   <h3 class="ui dividing header">Reviews</h3>
-  {% for review in review_list %}
+  {% for paged_review in paged_reviews %}
     <div class="comment">
       <a class="avatar">
         <img src="/images/avatar/small/matt.jpg">
       </a>
       <div class="content">
-        <a class="author">{{ review.user }}</a>
+        <a class="author">{{ paged_review.user }}</a>
         <div class="metadata">
-          <span class="date">{{ review.updated}}</span>
+          <span class="date">{{ paged_review.updated}}</span>
           <!-- <span class="date">Today at 5:42PM</span> -->          
         </div>
         <div class="text">
-          {{ review.comment }}
+          {{ paged_review.comment }}
         </div>
       </div>
-      {% if user == review.user %}
+      {% if user == paged_review.user %}
       <div class="actions">
         <a class="reply">Modify</a>
-        <a class="reply">DEL</a>
+        <a class="reply" value={{ paged_review.pk }} onclick="get_pk_val(this)">DEL</a>
       </div>
       {% else %}
       <div class="actions">
@@ -86,6 +86,25 @@
       
     </div>
   {% endfor %}
+  <p></p>
+  {% if paged_reviews.has_other_pages %}
+    <div class="ui pagination menu">      
+      {% if paged_reviews.has_previous %}
+        <a class="item" href="?page={{ paged_reviews.previous_page_number }}"><i class="chevron left icon"></i></a>
+      {% endif %}
+      {% for i in paged_reviews.paginator.page_range %}
+        {% if paged_reviews.number == i %}
+          <a class="active item">{{ i }}</a>
+        {% else %}
+          <a class="item" href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+      {% endfor %}
+        {% if paged_reviews.has_next %}
+          <a class="item" href="?page={{ paged_reviews.next_page_number }}"><i class="chevron right icon"></i></a>
+        {% endif %}      
+    </div>
+  {% endif %}
+
   <!-- <div class="comment">
     <a class="avatar">
       <img src="/images/avatar/small/matt.jpg">
@@ -131,12 +150,12 @@
    {% for recom_beer in recom_beers %}
    <div class="ui orange centered card">
     <div class="image">
-      <img class="ui small circular image" src="{% static 'a.jpg' %}">
+      <img class="ui small circular image" src="{{ recom_beer.beer_image.main.url }}">
     </div>
     <div class="content">
       <a class="header" href="{% url 'beers:beer_detail' recom_beer.name %}" style="font-size: 1.18571429em;">{{ recom_beer.name }}</a>
       <div class="meta">
-        <a>Rating: {{ recom_beer.overall_score }}</a>
+        <a>Rating: {{ recom_beer.overall_score|floatformat:2 }}</a>
         <div class="ui star rating recom" data-rating="{{ recom_beer.overall_score|floatformat:'0' }}" data-max-rating="5"></div>
       </div>
     </div>
@@ -209,6 +228,27 @@
   </div>
 </div>
 
+<div class="ui tiny modal del_review">
+  <div class="ui icon header">
+    <i class="warning icon"></i>
+    Delete Review
+  </div>
+  <div class="content">
+    <p>Deleting your Review?</p>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <input id="hidden_del_review" type="hidden" value="">
+    <div class="ui green ok inverted button" id="delete_review_yes">
+      <i class="checkmark icon"></i>
+      Yes
+    </div>
+  </div>
+</div>
+
 <!-- <div class="ui selection dropdown">
   <input name="Rating" type="hidden">
   <i class="dropdown icon"></i>
@@ -232,6 +272,18 @@
 
 {% block custom_script %}
   <script type="text/javascript"> 
+    function get_pk_val(elem) {
+      var pk_val = $(elem).attr("value");
+      $('#hidden_del_review').attr("value", pk_val);
+      $('.tiny.modal.del_review').modal('show');
+    }
+    $('#delete_review_yes').click(function(){
+      var post_pk_val = $('#hidden_del_review').attr("value");
+      var post_url = '/beers/' + post_pk_val + '/del';
+      $.post(post_url, function(){
+        
+      });
+    });
     $('.ui.star.rating.review.result').rating('disable');   
     $('.ui.star.rating.recom').rating('disable');
     $("#Review_Write_Btn").click(function(){
@@ -242,6 +294,7 @@
     $("#review_submit_btn").click(function(){
       $( "#review_form" ).submit();
     });
+
     $("#Login_to_Write_Btn").click(function(){
       window.location.href='/accounts/login';
     });
