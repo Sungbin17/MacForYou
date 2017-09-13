@@ -14,34 +14,33 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # ClassBaseView
 
-class BeerDetailView(DetailView):
-    template_name = 'beer_detail.html'
+# class BeerDetailView(DetailView):
+#     template_name = 'beer_detail.html'
 
-    def get_object(self, *args, **kwargs):
-        name = self.kwargs.get("slug")
-        instance = get_object_or_404(Beer, name__iexact=name)  # iexact make nonecase sensetive db search
-        return instance
+#     def get_object(self, *args, **kwargs):
+#         name = self.kwargs.get("slug")
+#         instance = get_object_or_404(Beer, name__iexact=name)  # iexact make nonecase sensetive db search
+#         return instance
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(BeerDetailView, self).get_context_data(*args, **kwargs)
-        context['beer_reviews'] = context['object'].beer_reviews.all()
-        return context
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(BeerDetailView, self).get_context_data(*args, **kwargs)
+#         context['beer_reviews'] = context['object'].beer_reviews.all()
+#         return context
 
 
-class BeerTypeDetailView(DetailView):
-    template_name = 'beertype_detail.html'
+# class BeerTypeDetailView(DetailView):
+#     template_name = 'beertype_detail.html'
 
-    def get_object(self, *args, **kwargs):
-        name = self.kwargs.get("slug")
-        instance = get_object_or_404(BeerType, name__iexact=name)  # iexact make nonecase sensetive db search
-        return instance
+#     def get_object(self, *args, **kwargs):
+#         name = self.kwargs.get("slug")
+#         instance = get_object_or_404(BeerType, name__iexact=name)  # iexact make nonecase sensetive db search
+#         return instance
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(BeerTypeDetailView, self).get_context_data(*args, **kwargs)
-        context['beertype_beers_list'] = context['object'].beertype_beers.all()
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(BeerTypeDetailView, self).get_context_data(*args, **kwargs)
+#         context['beertype_beers_list'] = context['object'].beertype_beers.all()
 
-        return context
-
+#         return context
 
 # class BeerTypeDetailView(View):
 # 	def get(self, request, *args, **kwargs):
@@ -50,6 +49,11 @@ class BeerTypeDetailView(DetailView):
 # 		print(instance.beertype_beers.all())
 # 		return HttpResponse('debuging')
 
+# class BeerListView(View):
+#     def get(self, request, *args, **kwargs):
+#         context = {}
+#         return render(request, 'beer_list.html', context)
+
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         context = {}
@@ -57,23 +61,14 @@ class IndexView(View):
         # return render(request, 'index.html', context)
 
 
-class BeerListView(View):
-    def get(self, request, *args, **kwargs):
-        context = {}
-        return render(request, 'beer_list.html', context)
-
-
 def beer_type(request, slug):
-    print('called')
+
     beer_type = get_object_or_404(BeerType, name__iexact=slug)
 
     # related_beers = Beer.objects.filter(name__iexact=slug)
     related_beers = Beer.objects.select_related('beertype').filter(beertype__name__iexact=slug)
     related_reviews = BeerReview.objects.select_related('beer__beertype').filter(
         beer__beertype__name__iexact=slug).order_by('-updated')  # 관련 리뷰 업데이트순으로
-
-    print(slug)
-    print(related_beers)
 
     recom_type = BeerType.objects.exclude(name__iexact=slug)
     # 현재 접근한 타입을 제외한 다른 모든 타입을 가져온뒤
@@ -103,8 +98,6 @@ def beer_detail(request, slug):
     review_list = BeerReview.objects.filter(beer_id=beer.id)
     recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:3]
 
-    score_full = round(beer.abv, 2)  # 값이 하나기때문에 뷰에서 반올림
-
     page = request.GET.get('page', 1)
     paginator = Paginator(review_list, 5)
 
@@ -131,7 +124,6 @@ def beer_detail(request, slug):
     context = {
         'form': form,
         'beer': beer,
-        'beer_score_full': score_full,
 
         # 'review_list': review_list,
         'paged_reviews': paged_reviews,
@@ -172,7 +164,6 @@ def review_detail(request, pk):
 @transaction.atomic
 def review_create(request, slug):
     beer = get_object_or_404(Beer, name__iexact=slug)
-    print(beer)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
