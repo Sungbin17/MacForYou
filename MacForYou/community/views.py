@@ -1,38 +1,34 @@
 from django.shortcuts import redirect, get_object_or_404, render
-from .models import Party, Choice, Likes
+from .models import Meetup, Mlike
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.urls import reverse
-from django.template import loader
-from .forms import PartyModelForm, ChoiceModelForm
+from django.template import *
+from .forms import MeetupModelForm
 from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-import json
-from django.template import *
 from django.db import models 
 import datetime
 # Create your views here.
 
-def party_view(request):
-	party_list = Party.objects.order_by('-created_at')[:]
-	context = {'party_list': party_list}
-	now = datetime.datetime.now()
-	# response = render(request, 'community/party_list.html', context)
-	response = render(request, 'community_list.html', context)
-	return response
+def meetup_view(request):
+	#party_list = Party.objects.order_by('-date_meetup')[:]
+
+	meetup_list = Meetup.objects.filter(date_meetup__gte = datetime.date.today())
+	#TO_DO: need to sort out like based order
+
+	context = {'meetup_list': meetup_list}
+
+	return render(request, 'community_list.html', context)
 
 
+def meetup_detail(request, meetup_id):
+	meetup = get_object_or_404(Meetup, pk=meetup_id)
+	return render(request, 'community/party_detail.html', {'meetup': meetup})
 
-def party_detail(request, party_id):
-	choice = Choice.objects
-	try:
-		party = Party.objects.get(pk=party_id)
-	except Party.DoesNotExist:
-		raise Http404("Party does not exist")
-	return render(request, 'community/party_detail.html', {'party': party})
 
 def vote(request, party_id):
-	party = get_object_or_404(Party, pk=party_id)
+	party = get_object_or_404(Meetup, pk=party_id)
 	try:
 		selected_choice = party.choice_set.get(pk=request.POST['choice'])
 	except (KeyError, Choice.DoesNotExist):
