@@ -17,7 +17,8 @@ def party_view(request):
 	party_list = Party.objects.order_by('-created_at')[:]
 	context = {'party_list': party_list}
 	now = datetime.datetime.now()
-	response = render(request, 'community/party_list.html', context)
+	# response = render(request, 'community/party_list.html', context)
+	response = render(request, 'community_list.html', context)
 	return response
 
 
