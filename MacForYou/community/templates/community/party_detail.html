@@ -1,25 +1,23 @@
-<h1>{{ party.title }}</h1>
+<h1>{{ meetup.title }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-
-
-		<li>내용: {{ party.content }}</li>
-		<li>선호하는 맥주: {{ party.preferred_beer }}</li>
-		<li>모임 장소: {{ party.place }}</li>
-		<li>만나는 날짜 및 시간: {{ party.date_meeting }}</li>
-		<li>게시글 올린 날짜: {{party.created_at}}</li>
-		<li>만나는 날짜: {{party.date_meeting}}</li>
+	<li>내용: {{ meetup.content }}</li>
+	<li>선호하는 맥주: {{ meetup.preferred_beer }}</li>
+	<li>모임 장소: {{ meetup.place }}</li>
+	<li>만나는 날짜 및 시간: {{ meetup.date_meeting }}</li>
+	<li>게시글 올린 날짜: {{meetup.created_at}}</li>
+	<li>만나는 날짜: {{meetup.date_meeting}}</li>
 
 <p>참가하려면 눌러주세요</p>
 
 
 
 </form>
-<a class="badge badge-primary" href="{% url 'community:party_likes' party.pk %}">{{ party.likes_user_set.count }} 참가{{ party.likes_user_set.count|pluralize }}</a>
-{{party.likes_user_set.all}}
+<a class="badge badge-primary" href="{% url 'community:meetup_likes' meetup.pk %}">{{ meetup.likes_user_set.count }} 참가{{ meetup.likes_user_set.count|pluralize }}</a>
+{{meetup.likes_user_set.all}}
 
-<p>{{party.party_beer_image}}</p>
+<p>{{meetup.party_beer_image}}</p>
 
 <p><img src="{{party.party_beer_image.url}}" class='img-responsive'/> </p>
 

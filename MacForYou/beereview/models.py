@@ -10,7 +10,8 @@ def beer_img_upload_location(name, filename):
 class BeerType(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    #TODO : img field required
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -23,7 +24,8 @@ class Production_Company(models.Model):
     # location          = models.CharField(max_length=30, null=True)
     # owner_company = models.CharField(max_length=50, null=True)
     description = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    #TODO: image field required
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -39,13 +41,14 @@ class Beer(models.Model):
     description = models.TextField(default='BEER Description HERE')
     beertype = models.ForeignKey(BeerType, on_delete=models.SET_NULL, null=True, related_name='beertype_beers')
     company = models.ForeignKey(Production_Company, on_delete=models.SET_NULL, null=True, related_name='production_beers')
-    reviews_count = models.IntegerField(default=0)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     overall_score = models.DecimalField(max_digits=10, decimal_places=9, default=0)
-    beer_image=StdImageField(upload_to=beer_img_upload_location, blank=True, variations={'avatar':(32,32), 'main':(270,270)})
-    #image_recommend=StdImageField(upload_to=beer_img_upload_location(name), variations={'thumbnail': {'width': 270, 'height': 270}})    
+    beer_image=StdImageField(upload_to=beer_img_upload_location, blank=True, variations={'avatar':(32,32), 'main':(270,270)})  
     total_sum = models.DecimalField(max_digits=30, decimal_places=2, default=0)
+    reviews_count = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    #TODO: add search field to or korea name field to search on korean keyword and show up on reasult
 
     def __str__(self):
         return self.name
@@ -60,7 +63,7 @@ class BeerReview(models.Model):
     overall_score = models.DecimalField(max_digits=3, decimal_places=2)
     beer = models.ForeignKey(Beer, on_delete=models.CASCADE, related_name='beer_reviews')
     comment = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     comment_deleted = models.BooleanField(default=False)
     

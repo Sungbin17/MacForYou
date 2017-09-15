@@ -18,19 +18,19 @@
 {% block content %}
 <div class="ui main container">
   <div class="ui hidden divider""></div>
-    <h3 class="ui dividing header">community: List</h3>
+    <h3 class="ui dividing header">Community: List</h3>
     <div class="ui large middle aligned divided list">
-      {% for party in party_list %}
+      {% for meetup in meetup_list %}
       <div class="item">
         <div class="right floated content">
           <!-- <div class="ui star rating review result" data-rating="3" data-max-rating="5"></div> -->
-          <p style="text-align: right;">현재 참가 인원: {{ party.likes_user_set.count }}</p>
+          <p style="text-align: right;">현재 참가 인원: {{ meetup.likes_user_set.count }}</p>
         </div>
         <!-- <img class="ui avatar image" src="/images/avatar/small/daniel.jpg"> -->
         <div class="content">
-          <a class="header" href="{% url 'community:party_detail' party.id %}">{{ party.title }} 
+          <a class="header" href="{% url 'community:meetup_detail' meetup.id %}">{{ meetup.title }} 
           <!-- <div class="ui star rating right review result" data-rating="3" data-max-rating="5"></div> --></a>
-          <p> {{ party.content }} </p>
+          <p> {{ meetup.content }} </p>
         </div>
       </div>
       {% endfor %}
