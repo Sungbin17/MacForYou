@@ -1,59 +1,43 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} 
+{% load static %} 
 
 {% block custom_css_for_page %}
-  <style type="text/css">
-  body {
+<style type="text/css">
+body {
     background-color: #FFFFFF;
-  }
-  .ui.menu .item img.logo {
-    margin-right: 1.5em;
-  }
-  .main.container {
-    margin-top: 3em;
-  }
-  </style>
-{% endblock custom_css_for_page %}
+}
 
+.ui.menu .item img.logo {
+    margin-right: 1.5em;
+}
+
+.main.container {
+    margin-top: 3em;
+}
+</style>
+{% endblock custom_css_for_page %} 
 
 {% block content %}
-
-<!-- <h1>{{ object.name }}</h1>
-<p> {{ object.description }}</p>
-
-{% if beertype_beers_list %}
-<ul>
-{% for beer in beertype_beers_list %}
-	<li> {{ beer.name }}</li>
-{% endfor %}
-</ul>
-{% endif %} -->
-
 <div class="ui eight column doubling stackable grid main container">
-<div class="ten wide column">
-  <div class="ui items">
-    <div class="item">
-      <div class="image">
-        <img src="/images/wireframe/image.png">
-      </div>
-      <div class="content">
-       <a class="header">{{ beer_type.name }}</a>
-       <!-- <div class="extra"> {{ beer_type.nation }} <i class="kr flag"></i></div> -->
-<!--      <div class="meta">
-     	<span>Rating: </span>
-     	<div class="ui star rating review result" data-rating="3" data-max-rating="5"></div>
-     </div>  -->    
-       <div class="meta">
-     	  <span>Description</span>
-       </div>   
-       <div class="description">
-     	  <p style="word-break: break-all;">{{ beer_type.description }}</p>
-       </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui hidden divider""></div>
+    <div class="ten wide column">
+        <div class="ui items">
+            <div class="item">
+                <div class="image">
+                    <img src="/images/wireframe/image.png">
+                </div>
+                <div class="content">
+                    <a class="header">{{ beer_type.name }}</a>
+                    <!-- <div class="extra"> {{ beer_type.nation }} <i class="kr flag"></i></div> -->
+                     <div class="meta">
+                        <span>Description</span>
+                    </div>
+                    <div class="description">
+                        <p style="word-break: break-all;">{{ beer_type.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui hidden divider"></div>
 
   <div> maybe embed somthing</div>
 
@@ -63,56 +47,55 @@
     <div class="item">
       <div class="right floated content">
         <div class="ui star rating review result" data-rating="{{ beer.overall_score|floatformat:'0' }}" data-max-rating="5"></div>
-        <p style="text-align: right;">{{ beer.overall_score|floatformat:2 }}</p>
+        <p style="text-align: right; ">{{ beer.overall_score|floatformat:2 }}</p>
       </div>
       <img class="ui avatar image" src="{{ beer.beer_image.main.url }}">
       <div class="content">
-        <a class="header" href="{% url 'beers:beer_detail' beer.name %} ">{{ beer.name }} 
-        <!-- <div class="ui star rating right review result" data-rating="3" data-max-rating="5"></div> --></a>
+        <a class="header" href="{% url 'beers:beer_detail' beer.name %}">{{ beer.name }}</a>
         <p> it is just beer </p>
       </div>
     </div>
     {% endfor %}
-<!--     <div class="item">
-      <div class="right floated content">
-        <i class="star icon"></i><i class="star icon" style="color: yellow;"></i><i class="star icon"></i><i class="star half empty icon"></i>
-        <p style="text-align: right;">3.75</p>
+<!--     <div class="item ">
+      <div class="right floated content ">
+        <i class="star icon "></i><i class="star icon " style="color: yellow; "></i><i class="star icon "></i><i class="star half empty icon "></i>
+        <p style="text-align: right; ">3.75</p>
       </div>
-      <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-      <div class="content">
-        <a class="header">Calsburg</a>
+      <img class="ui avatar image " src="/images/avatar/small/daniel.jpg ">
+      <div class="content ">
+        <a class="header ">Calsburg</a>
         <p> great beer </p>
       </div>
     </div>
-    <div class="item">
-      <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-      <div class="content">
-        <a class="header">Asahi</a>
+    <div class="item ">
+      <img class="ui avatar image " src="/images/avatar/small/daniel.jpg ">
+      <div class="content ">
+        <a class="header ">Asahi</a>
         <p> best beer </p>
       </div>
     </div> -->
   </div>
 </div>
 
-<!-- <div class="ui vertical divider"></div> -->
+<!-- <div class="ui vertical divider "></div> -->
 <div class="six wide column">
 <div class="ui raised segment">
   <h3> Other Beertype Recom</h3>
-<!--   <img class="ui medium circular image" src="/images/wireframe/square-image.png">
-  <img class="ui medium circular image" src="/images/wireframe/square-image.png">
-  <img class="ui medium circular image" src="/images/wireframe/square-image.png">
-  <img class="ui medium circular image" src="/images/wireframe/square-image.png"> -->
-  <div class="ui cards">
+<!--   <img class="ui medium circular image " src="/images/wireframe/square-image.png ">
+  <img class="ui medium circular image " src="/images/wireframe/square-image.png ">
+  <img class="ui medium circular image " src="/images/wireframe/square-image.png ">
+  <img class="ui medium circular image " src="/images/wireframe/square-image.png "> -->
+  <div class="ui cards ">
    {% for recom_type in recom_types %}
    <div class="ui orange centered card">
     <div class="image">
-      <img class="ui small circular image" src="{% static 'a.jpg' %}">
+      <img class="ui small circular image " src="{% static 'a.jpg' %} ">
     </div>
     <div class="content">
       <a class="header" href="{% url 'beer_type' recom_type.name %}" style="font-size: 1.18571429em;">{{ recom_type.name }}</a>
-      <!-- <div class="meta">
+      <!-- <div class="meta ">
         <a>Rating: {{ recom_beer.overall_score }}</a>
-        <div class="ui star rating recom" data-rating="{{ recom_beer.overall_score|floatformat:"0" }}" data-max-rating="5"></div>
+        <div class="ui star rating recom " data-rating="{{ recom_beer.overall_score|floatformat:'0' }} " data-max-rating="5 "></div>
       </div> -->
     </div>
   </div>

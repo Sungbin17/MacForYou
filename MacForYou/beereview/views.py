@@ -99,7 +99,7 @@ def beer_detail(request, slug):
     recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:3]
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(review_list, 5)
+    paginator = Paginator(review_list, 10)
 
     try:
         paged_reviews = paginator.page(page)

@@ -19,12 +19,14 @@ def meetup_view(request):
 
 	context = {'meetup_list': meetup_list}
 
-	return render(request, 'community_list.html', context)
+	# return render(request, 'community_list.html', context)
+	return render(request, 'community_cardlist.html', context)
 
 
 def meetup_detail(request, meetup_id):
 	meetup = get_object_or_404(Meetup, pk=meetup_id)
-	return render(request, 'community/party_detail.html', {'meetup': meetup})
+	# return render(request, 'community/party_detail.html', {'meetup': meetup})
+	return render(request, 'community_detail.html', {'meetup': meetup})
 
 
 def vote(request, party_id):
