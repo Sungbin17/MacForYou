@@ -28,7 +28,7 @@ body {
                     <img src="{{ beer.beer_image.main.url }}">
                 </div>
                 <div class="content">
-                    <a class="header">{{ beer.name }}</a>
+                    <div class="header">{{ beer.name }}</div>
                     <div class="extra"> {{ beer.nation }}
                         <!-- <i class="kr flag"></i> --></div>
                     <a class="extra" href="{% url 'beer_type' beer.beertype.name %}">Type: {{ beer.beertype.name }}</a>
