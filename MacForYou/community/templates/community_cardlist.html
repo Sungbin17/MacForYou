@@ -22,74 +22,37 @@ body {
     <div class="ui hidden divider"></div>
     <h3 class="ui dividing header">Community: List</h3>
     <div class="ui three stackable cards">
+        {% for meetup in meetup_list %}
         <div class="ui card">
             <div class="content">
-                <div class="header">Cute Dog</div>
+                <div class="right floated meta">{{ meetup.created|timesince }}</div>
+                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
+<!--                 <div class="header">{{ meetup.title }}</div>
                 <div class="meta">
-                    <span class="right floated time">2 days ago</span>
-                    <span class="category">Animals</span>
-                </div>
-                <div class="description">
-                    <p></p>
+                    <span class="right floated time">{{ meetup.created|timesince }}</span>                    
+                </div> -->
+            </div>
+            <div class="content">
+                <div class="header">{{ meetup.title }}</div>
+                <div class="description" style="word-break: break-all; text-overflow: ellipsis;">
+                    {{ meetup.content|truncatewords:10 }}
                 </div>
             </div>
             <div class="extra content">
-                <div class="right floated author">
-                    <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> Matt
-                </div>
+<!--                 <div class="right floated author">
+                    <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> {{ meetup.user.nickname}}
+                </div> -->
+                <span><i class="heart outline like icon"></i>35 likes</span>
+<!--                 <div class="ui one button right floated">
+                    <div class="tiny ui basic green button">Learn More</div>
+                </div> -->
+                <a class="small ui basic green button right floated" href="{% url 'community:meetup_detail' meetup.id %}">Learn More</a>
+<!--                 <div class="right floated author">
+                    <span><i class="heart outline like icon"></i>35 likes</span>
+                </div> -->
             </div>
         </div>
-        <div class="ui card">
-            <div class="content">
-                <div class="header">Cute Dog</div>
-                <div class="meta">
-                    <span class="right floated time">2 days ago</span>
-                    <span class="category">Animals</span>
-                </div>
-                <div class="description">
-                    <p></p>
-                </div>
-            </div>
-            <div class="extra content">
-                <div class="right floated author">
-                    <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> Matt
-                </div>
-            </div>
-        </div>
-        <div class="ui card">
-            <div class="content">
-                <div class="header">Cute Dog</div>
-                <div class="meta">
-                    <span class="right floated time">2 days ago</span>
-                    <span class="category">Animals</span>
-                </div>
-                <div class="description">
-                    <p></p>
-                </div>
-            </div>
-            <div class="extra content">
-                <div class="right floated author">
-                    <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> Matt
-                </div>
-            </div>
-        </div>
-        <div class="ui card">
-            <div class="content">
-                <div class="header">Cute Dog</div>
-                <div class="meta">
-                    <span class="right floated time">2 days ago</span>
-                    <span class="category">Animals</span>
-                </div>
-                <div class="description">
-                    <p></p>
-                </div>
-            </div>
-            <div class="extra content">
-                <div class="right floated author">
-                    <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> Matt
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock content %}

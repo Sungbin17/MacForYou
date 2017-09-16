@@ -20,12 +20,12 @@ class Meetup(models.Model):
     place= models.CharField(max_length=200)
     kakao_open_chat_link = models.CharField(max_length=200, blank=True)
     date_meetup= models.DateTimeField()
+    mlikes = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
-
 
 # class Choice(models.Model):
 #     party = models.ForeignKey(Party, on_delete=models.CASCADE)
