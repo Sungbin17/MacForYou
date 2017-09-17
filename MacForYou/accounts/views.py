@@ -29,8 +29,6 @@ def signup(request):
 
 @login_required
 def profile(request):
-    fb_uid = SocialAccount.objects.get(user_id=request.user.id, provider='facebook')
-    print(fb_uid.uid)
     return render(request,'accounts/profile.html')
 
 def login(request):
@@ -47,10 +45,3 @@ def login(request):
         template_name='accounts/login_form.html',
         extra_context={'providers': providers})
 
-def userrank(request):
-    userrank = User.objects.all()
-    userrank2= UserProfiles.objects.all()
-    ctx = {
-        'user': userrank, 'user2':userrank2
-    }
-    return render(request, 'accounts/userrank.html', ctx)

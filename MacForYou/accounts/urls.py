@@ -9,5 +9,5 @@ urlpatterns=[
     url(r'^login/$',views.login, name='login'),
     url(r'^profile/',views.profile, name='profile'),
     url(r'^logout/$',auth_views.logout, name='logout', kwargs={'template_name':'accounts/login_form.html'}),
-    url(r'^userrank/',views.userrank, name='userrank'),
+    
 ]

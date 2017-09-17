@@ -32,7 +32,7 @@ from beereview.views import IndexView, beer_type
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^$', root, name='root'),
-    # url(r'^accounts/', include("accounts.urls")),
+    url(r'^accounts/', include("accounts.urls")),
 
     url(r'^accounts/', include('allauth.urls')),
     # url(r'^beer/full_list/$', BeerListView.as_view()),
