@@ -19,14 +19,14 @@
 {% endblock custom_css_for_page %}
 
 {% block content %}
-<div class="ui tiny modal create_review">
-    <div class="header"> Review for {{slug}} </div>
+<div class="ui tiny modal create_community">
+    <div class="header"> Make Community </div>
     <div class="content">
         <form class="ui reply form" id="review_form" action="{% url 'beers:review_create' slug %}" method="post">
             {% csrf_token %}
             <div class="field">
                 {{form.overall_score.errors}}
-                <label for="{{form.overall_score.id_for_label}}">Your Rating</label>
+                <label for="{{form.overall_score.id_for_label}}">Rating</label>
                 <div class="ui selection dropdown">
                     <input name="{{ form.overall_score.html_name }}" id="{{form.overall_score.id_for_label}}" type="hidden">
                     <i class="dropdown icon"></i>
@@ -67,7 +67,7 @@
 	$("#review_submit_btn").click(function() {
         $("#review_form").submit();
     });
-    $('.tiny.modal.create_review').modal({
+    $('.tiny.modal.create_community').modal({
     		onHidden : function() {
       		window.location.href = '{% url 'beers:beer_detail' slug %}';
     		}

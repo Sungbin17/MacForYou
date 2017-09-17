@@ -32,7 +32,7 @@ body {
       <div class="content">
         <a class="header" href="{% url 'beers:beer_detail' beer.name %}">{{ beer.name }}
         <!-- <div class="ui star rating right review result " data-rating="3 " data-max-rating="5 "></div> --></a>
-        <p> {{ beer.description }} </p>
+        <p> {{ beer.description|truncatewords:10 }} </p>
       </div>
     </div>
     {% endfor %}
