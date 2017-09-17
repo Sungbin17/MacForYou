@@ -27,7 +27,7 @@
     <div class="column">
         <div class="header"> Create Meetup </div>
         
-        <form class="ui large form" id="meetup_create_form" action="{% url 'community:meetup_create' %}" method="post">
+        <form class="ui large form" id="meetup_create_form" action="{% url 'community:meetup_create' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <div class="ui stacked segment">            
                 <div class="required field">
