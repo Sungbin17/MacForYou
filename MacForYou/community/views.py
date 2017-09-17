@@ -19,7 +19,6 @@ def meetup_view(request):
 
 	context = {'meetup_list': meetup_list}
 
-	# return render(request, 'community_list.html', context)
 	return render(request, 'community_cardlist.html', context)
 
 

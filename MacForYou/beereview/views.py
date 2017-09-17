@@ -50,10 +50,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # 		print(instance.beertype_beers.all())
 # 		return HttpResponse('debuging')
 
-# class BeerListView(View):
-#     def get(self, request, *args, **kwargs):
-#         context = {}
-#         return render(request, 'beer_list.html', context)
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -179,17 +175,11 @@ def review_create(request, slug):
     if first_write_flag == True:
         send_form = ReviewForm()
     else:
-        # initial = {
-        #     'overall_score': org_review.overall_score,
-        #     'comment': org_review.comment
-        # }
-        # send_form = ReviewForm(initial=initial)
         send_form = ReviewForm(instance=org_review)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
-            print('form is valid')
             if first_write_flag == False:
                 form = ReviewForm(request.POST, request.FILES, instance=org_review)
                 beer.reviews_count -=1
@@ -270,8 +260,43 @@ def review_edit(request, pk):
     return render(request, 'beereview/beereview_edit.html', context)
 
 
-def review_delete(request, pk):
-    print('hey')
+# def review_delete(request, pk):
+#     print('hey')
+#     review = get_object_or_404(BeerReview, pk=pk)
+#     redirect_name = review.beer.name
+#     if request.method == 'POST':
+#         if review.user_id == request.user.id:
+#             review.delete()
+#             # return redirect('beers:beers_list')
+#     return redirect('beers:beers_detail', redirect_name)
+
+@login_required
+@transaction.atomic
+def review_delete(request, slug):
+    beer = get_object_or_404(Beer, name__iexact=slug)
+    try:
+        #if user already wrote review then he only edit
+        org_review = BeerReview.objects.get( user=request.user, beer=beer.id )
+
+    except ObjectDoesNotExist:
+        return redirect('beers:beers_detail', slug)
+
+    if request.method == 'POST':
+        beer.reviews_count -= 1
+        beer.total_sum -= org_review.overall_score
+        if beer.reviews_count == 0:
+            beer.overall_score = 0
+            beer.total_sum = 0
+        else:
+            beer.overall_score = beer.total_sum / beer.reviews_count
+
+        org_review.delete()
+        beer.save()
+    return redirect('beers:beer_detail', slug)
+
+
+
+
     review = get_object_or_404(BeerReview, pk=pk)
     redirect_name = review.beer.name
     if request.method == 'POST':
