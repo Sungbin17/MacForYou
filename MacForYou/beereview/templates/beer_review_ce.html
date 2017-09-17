@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block custom_css_for_page %}
+<style type="text/css">
+	body {
+	  background-color: #DADADA;
+	}
+	body > .grid {
+	  height: 100%;
+	}
+	.image {
+	  margin-top: -100px;
+	}
+	.column {
+	  max-width: 450px;
+	}
+</style>
+{% endblock custom_css_for_page %}
+
+{% block content %}
+<div class="ui tiny modal create_review">
+    <div class="header"> Modal Test Header </div>
+    <div class="content">
+        <form class="ui reply form" id="review_form" action="{% url 'beers:review_create' slug %}" method="post">
+            {% csrf_token %}
+            <div class="field">
+                {{form.overall_score.errors}}
+                <label for="{{form.overall_score.id_for_label}}">Rating</label>
+                <div class="ui selection dropdown">
+                    <input name="{{ form.overall_score.html_name }}" id="{{form.overall_score.id_for_label}}" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Rating</div>
+                    <div class="menu">
+                        <div class="item" data-value="0.5"><i class="star half empty icon"></i>0.5</div>
+                        <div class="item" data-value="1"><i class="star icon"></i>1</div>
+                        <div class="item" data-value="1.5"><i class="star icon"></i><i class="star half empty icon"></i>1.5</div>
+                        <div class="item" data-value="2"><i class="star icon"></i><i class="star icon"></i>2</div>
+                        <div class="item" data-value="2.5"><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>2.5</div>
+                        <div class="item" data-value="3"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>3</div>
+                        <div class="item" data-value="3.5"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>3.5</div>
+                        <div class="item" data-value="4"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>4</div>
+                        <div class="item" data-value="4.5"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star half empty icon"></i>4.5</div>
+                        <div class="item" data-value="5"><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i><i class="star icon"></i>5</div>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+            <div class="field">
+                {{form.comment.errors}}
+                <label for="{{form.comment.id_for_label}}">Your Comments</label>
+                <textarea name="{{ form.comment.html_name }}" rows="3" id="{{form.comment.id_for_label}}">{{form.comment.value|default_if_none:''}}</textarea>
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui red cancel inverted button">Cancel</div>
+        <div class="ui green ok approve inverted button" id="review_submit_btn">SEND</div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block custom_script %}
+<script type="text/javascript">
+	// $('.tiny.modal.create_review').modal('show');
+	$('.ui.selection.dropdown').dropdown();
+	$("#review_submit_btn").click(function() {
+        $("#review_form").submit();
+    });
+    $('.tiny.modal.create_review').modal({
+    		onHidden : function() {
+      		window.location.href = '{% url 'beers:beer_detail' slug %}';
+    		}
+    }).modal('show');
+
+</script>
+{% endblock custom_script %}
