@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Beer, BeerType, Production_Company, BeerReview
 import random
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -103,7 +104,6 @@ def beer_detail(request, slug):
 
     try:
         paged_reviews = paginator.page(page)
-
     except PageNotAnInteger:
         paged_reviews = paginator.page(1)
     except EmptyPage:
@@ -163,31 +163,86 @@ def review_detail(request, pk):
 @login_required
 @transaction.atomic
 def review_create(request, slug):
+    #purpose of this view is check if one user one review only rule
+    #and edit or create at once
+
     beer = get_object_or_404(Beer, name__iexact=slug)
+    first_write_flag = False
+    
+    try:
+        #if user already wrote review then he only edit
+        org_review = BeerReview.objects.get( user=request.user, beer=beer.id )
+
+    except ObjectDoesNotExist:
+        first_write_flag = True
+
+    if first_write_flag == True:
+        send_form = ReviewForm()
+    else:
+        # initial = {
+        #     'overall_score': org_review.overall_score,
+        #     'comment': org_review.comment
+        # }
+        # send_form = ReviewForm(initial=initial)
+        send_form = ReviewForm(instance=org_review)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
+            print('form is valid')
+            if first_write_flag == False:
+                form = ReviewForm(request.POST, request.FILES, instance=org_review)
+                beer.reviews_count -=1
+                beer.total_sum -= org_review.overall_score
+
             obj = form.save(commit=False)
             obj.user = request.user
             obj.beer_id = beer.id
-            obj.save()
-
+           
             beer.reviews_count +=1
             beer.total_sum += obj.overall_score
-
             beer.overall_score = beer.total_sum / beer.reviews_count
-            beer.save()
 
+            obj.save()
+            beer.save()
             return redirect('beers:beer_detail', slug)
 
     else:
-        form = ReviewForm()
+        # if request is get
+        context = {
+            'form': send_form,
+            'slug': slug
+        }
+        return render(request, 'beer_review_ce.html', context)
 
-    context = {
-        'form': form
-    }
-    return render(request, 'beereview/beereview_create.html', context)
+
+        #user not wrote review before
+
+        # if request.method == 'POST':
+    #     form = ReviewForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         obj = form.save(commit=False)
+    #         obj.user = request.user
+    #         obj.beer_id = beer.id
+    #         obj.save()
+
+    #         beer.reviews_count +=1
+    #         beer.total_sum += obj.overall_score
+
+    #         beer.overall_score = beer.total_sum / beer.reviews_count
+    #         beer.save()
+
+    #         return redirect('beers:beer_detail', slug)
+
+    # else:
+    #     form = ReviewForm()
+
+    # context = {
+    #     'form': form
+    # }
+    # # return render(request, 'beereview/beereview_create.html', context)
+    # context = {}
+    # return render(request, 'beer_review_ce.html', context)
 
 
 def review_edit(request, pk):

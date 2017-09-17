@@ -32,9 +32,6 @@ body {
                     <div class="extra"> {{ beer.nation }}
                         <!-- <i class="kr flag"></i> --></div>
                     <a class="extra" href="{% url 'beer_type' beer.beertype.name %}">Type: {{ beer.beertype.name }}</a>
-                    <!--      <div class="extra">
-        Calorie: {{ beer.calorie }} kcal
-     </div> -->
                     <div class="meta">
                         ABV: {{ beer.abv }} %
                     </div>
@@ -60,7 +57,7 @@ body {
                 <div class="content">
                     <a class="author">{{ paged_review.user }} ( Score: {{ paged_review.overall_score|floatformat:1 }} )</a>
                     <div class="metadata">
-                        <span class="date">{{ paged_review.updated}}</span>
+                        <span class="date">{{ paged_review.updated|timesince}}</span>
                         <!-- <span class="date">Today at 5:42PM</span> -->
                     </div>
                     <div class="text">
@@ -90,28 +87,15 @@ body {
                 <a class="item" href="?page={{ paged_reviews.next_page_number }}"><i class="chevron right icon"></i></a> {% endif %}
             </div>
             {% endif %}
-            <!-- <div class="comment">
-    <a class="avatar">
-      <img src="/images/avatar/small/matt.jpg">
-    </a>
-    <div class="content">
-      <a class="author">Matt</a>
-      <div class="metadata">
-        <span class="date">Today at 5:42PM</span>
-      </div>
-      <div class="text">
-        How artistic!
-      </div>
-      <div class="actions">
-        <a class="reply">Modify</a>
-      </div>
-    </div>
-  </div> -->
+           
             <div class="ui reply form">
                 <br/> {% if user.is_authenticated %}
-                <div class="ui blue labeled submit icon button" id="Review_Write_Btn">
+                <!-- <div class="ui blue labeled submit icon button" id="Review_Write_Btn">
                     <i class="icon edit"></i> Write Review
-                </div>
+                </div> -->
+                <a class="ui blue labeled submit icon button" href="{% url 'beers:review_create' slug=beer.name %}">
+                    <i class="icon edit"></i> Write Review
+                </a>
                 {% else %}
                 <div class="ui blue labeled submit icon button" id="Login_to_Write_Btn">
                     <i class="icon edit"></i> Login to Write Review

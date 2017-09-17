@@ -60,8 +60,8 @@ class Beer(models.Model):
 
 class BeerReview(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    overall_score = models.DecimalField(max_digits=3, decimal_places=2)
     beer = models.ForeignKey(Beer, on_delete=models.CASCADE, related_name='beer_reviews')
+    overall_score = models.DecimalField(max_digits=3, decimal_places=2)    
     comment = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
