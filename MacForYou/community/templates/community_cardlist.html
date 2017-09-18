@@ -21,9 +21,9 @@ body {
 <div class="ui main container">
     <div class="ui hidden divider"></div>
     {% if user.is_authenticated %}
-    <a class="ui labeled icon right floated primary basic button" href=""><i class="add square icon"></i>make meetup</a>
+    <a class="ui labeled icon right floated primary basic button" href="{% url 'community:meetup_create' %}"><i class="add square icon"></i>make meetup</a>
     {% else %}
-    <a class="ui labeled icon right floated primary basic button" href=""><i class="add square icon"></i>login to make meetup</a>
+    <a class="ui labeled icon right floated primary basic button" href="/accounts/login"><i class="add square icon"></i>login to make meetup</a>
     {% endif %}
     <h3 class="ui dividing header">Meetup: List</h3>
     <div class="ui three stackable cards">

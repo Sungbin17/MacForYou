@@ -50,18 +50,21 @@ def vote(request, party_id):
 	party = get_object_or_404(Party, pk=party_id)
 	return render(request, 'community/results.html', {'party': party})'''
 
+@login_required
 def party_create(request):
-	form=PartyModelForm(request.POST or None, request.FILES or None)
+	form=MeetupModelForm(request.POST or None, request.FILES or None)
+	print(form)
 	if form.is_valid():
 		form.save()
-		return redirect("/community")
+		return redirect('community:meetups')
 	else:
-		form=PartyModelForm()
+		form=MeetupModelForm()
 	content={
 		'form':form,
 	}
-	response = render(request, 'community/party_form.html', content)
-	return response
+	
+	# return render(request, 'community/party_form.html', content)
+	return render(request, 'community_ce2.html', content)
 
 '''def choice_create(request):
 	form=ChoiceModelForm(request.POST or None)
