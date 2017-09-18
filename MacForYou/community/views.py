@@ -53,18 +53,20 @@ def vote(request, party_id):
 @login_required
 def party_create(request):
 	form=MeetupModelForm(request.POST or None, request.FILES or None)
-	print(form)
-	if form.is_valid():
-		form.save()
-		return redirect('community:meetups')
+
+	if request.method == 'POST':
+		if form.is_valid():
+			obj = form.save(commit=False)
+			obj.user = request.user
+			obj.save()
+			return redirect('community:meetups')
 	else:
 		form=MeetupModelForm()
-	content={
-		'form':form,
-	}
-	
-	# return render(request, 'community/party_form.html', content)
-	return render(request, 'community_ce2.html', content)
+		content={
+			'form':form,
+		}	
+		# return render(request, 'community/party_form.html', content)
+		return render(request, 'community_ce2.html', content)
 
 '''def choice_create(request):
 	form=ChoiceModelForm(request.POST or None)
