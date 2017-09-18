@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{% static 'calendar.min.css' %}" />
 <style type="text/css">
 	body {
-	  background-color: #DADADA;
+	  background-color: #E2ED99;
 	}
 	body > .grid {
 	  height: 100%;
@@ -25,47 +25,62 @@
 {% block content %}
 <div class="ui middle aligned center aligned grid">
     <div class="column">
-        <div class="header"> Create Meetup </div>
+        <h2 class="ui icon header">
+            <i class="users icon"></i>
+            <div class="content">Create Meetup</div>
+            <div class="sub header">Create your own meetup</div>
+        </h2>
         
         <form class="ui large form" id="meetup_create_form" action="{% url 'community:meetup_create' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <div class="ui stacked segment">            
                 <div class="required field">
                     {{form.title.errors}}
-                    <label for="{{form.title.id_for_label}}">Title</label>
-                    <input name="{{ form.title.html_name }}" id="{{form.title.id_for_label}}">{{form.title.value|default_if_none:''}}</input>
+                    <div class="ui left icon input">
+                        <!-- <label for="{{form.title.id_for_label}}">Title</label> -->
+                        <i class="write icon"></i>
+                        <input name="{{ form.title.html_name }}" id="{{form.title.id_for_label}}" placeholder="meetup title">{{form.title.value|default_if_none:''}}</input>
+                    </div>
                 </div>
                 <div class="required field">
                     {{form.date_meetup.errors}}
                      <div class="ui calendar" id="meetup_datetime">
-                        <label for="{{form.date_meetup.id_for_label}}">DATE</label>
-                        <div class="ui input">                                       
-                        <input type="text" name="{{ form.date_meetup.html_name }}" id="{{form.date_meetup.id_for_label}}">{{form.date_meetup.value|default_if_none:''}}</input>
+
+                        <!-- <label for="{{form.date_meetup.id_for_label}}">DATE</label> -->
+                        <div class="ui left icon input">
+                            <i class="calendar icon"></i>                     
+                            <input type="text" name="{{ form.date_meetup.html_name }}" id="{{form.date_meetup.id_for_label}}" placeholder="date time of meetup">{{form.date_meetup.value|default_if_none:''}}</input>
                         </div>
                     </div>
                 </div>
                 <div class="required field">
                     {{form.content.errors}}
-                    <label for="{{form.content.id_for_label}}">Content</label>
-                    <textarea name="{{ form.content.html_name }}" rows="3" id="{{form.content.id_for_label}}">{{form.content.value|default_if_none:''}}</textarea>
+                    <div class="ui left icon input">
+                        <!-- <label for="{{form.content.id_for_label}}">Content</label> -->
+                        
+                        <textarea name="{{ form.content.html_name }}" rows="3" id="{{form.content.id_for_label}}" placeholder="detail of meetup">{{form.content.value|default_if_none:''}}</textarea>
+                    </div>
                 </div>
                 <div class="required field">
                     {{form.place.errors}}
-                    <label for="{{form.place.id_for_label}}">Place</label>
-                    <input name="{{ form.place.html_name }}" id="{{form.place.id_for_label}}">{{form.place.value|default_if_none:''}}</input>
+                    <div class="ui left icon input">
+                        <!-- <label for="{{form.place.id_for_label}}">Place</label> -->
+                        <i class="map outline icon"></i>
+                        <input name="{{ form.place.html_name }}" id="{{form.place.id_for_label}}" placeholder="place">{{form.place.value|default_if_none:''}}</input>
+                    </div>
                 </div>
                 <div class="field">
                     {{form.kakao_open_chat_link.errors}}
-                    <label for="{{form.kakao_open_chat_link.id_for_label}}">KAKAO OpenChat</label>
-                    <input name="{{ form.kakao_open_chat_link.html_name }}" id="{{form.kakao_open_chat_link.id_for_label}}">{{form.kakao_open_chat_link.value|default_if_none:''}}</input>
+                    <div class="ui left icon input">
+                        <!-- <label for="{{form.kakao_open_chat_link.id_for_label}}">KAKAO OpenChat</label> -->
+                        <i class="comments outline icon"></i>
+                        <input name="{{ form.kakao_open_chat_link.html_name }}" id="{{form.kakao_open_chat_link.id_for_label}}" placeholder="KAKAO OpenChat Link">{{form.kakao_open_chat_link.value|default_if_none:''}}</input>
+                    </div>
                 </div>
+                <div class="ui large red cancel inverted button" id="create_meetup_cancel_btn">Cancel</div>
+                <div class="ui large green submit inverted button" id="create_meetup_submit_btn">Submit</div>                
             </div>
         </form>
-        
-        <div class="actions">
-            <div class="ui red cancel inverted button">Cancel</div>
-            <div class="ui green ok approve inverted button" id="create_meetup_submit_btn">SEND</div>
-        </div>
     </div>
 </div>
 {% endblock content %}
@@ -74,15 +89,13 @@
 <script type="text/javascript" src="{% static 'calendar.min.js' %}"></script>
 <script type="text/javascript">
 	// $('.tiny.modal.create_review').modal('show');
-    $('#meetup_datetime').calendar();
+    // $('#meetup_datetime').calendar();
     $("#create_meetup_submit_btn").click(function() {
         $("#meetup_create_form").submit();
     });
-    $('.tiny.modal.create_meetup').modal({
-    		onHidden : function() {
-      		window.location.href = '{% url 'community:meetups' %}';
-    		}
-    }).modal('show');
+    $("#create_meetup_cancel_btn").click(function() {
+        window.location.href = '{% url 'community:meetups' %}';
+    });
 
 </script>
 {% endblock custom_script %}
