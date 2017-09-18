@@ -124,42 +124,62 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': [
+            'email',
+            'public_profile',
+            'user_friends'
+        ],
+        'AUTH_PARAMS': {
+            'auth_type': 'reauthenticate'
+        },
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'en_US',
+        'VERIFIED_EMAIL': True,
+        'VERSION': 'v2.4'
+    }
+}
 
-SOCIALACCOUNT_PROVIDERS = \
-    {'facebook':
-         {'METHOD': 'oauth2',
-          'SCOPE': ['email', 'public_profile', 'user_friends'],
-          'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-          'FIELDS': [
-              'id',
-              'email',
-              'name',
-              'first_name',
-              'last_name',
-              'verified',
-              'locale',
-              'timezone',
-              'link',
-              'gender',
-              'updated_time'],
-          'EXCHANGE_TOKEN': True,
-          'LOCALE_FUNC': lambda request: 'kr_KR',
-          'VERIFIED_EMAIL': False,
-          'VERSION': 'v2.4'}}
+
+AUTHENTICATION_BACKENDS = (
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
 
 
 SITE_ID = 1
 
 ### 로그인 관련 ###
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/accounts/profile'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'auth.User'
 
 # 이메일 확인을 하지 않음
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'optional'
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email','phone','name']
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['phone','name']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
