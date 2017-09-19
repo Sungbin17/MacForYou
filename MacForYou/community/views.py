@@ -51,7 +51,7 @@ def vote(request, party_id):
 	return render(request, 'community/results.html', {'party': party})'''
 
 @login_required
-def party_create(request):
+def meetup_create(request):
 	form=MeetupModelForm(request.POST or None, request.FILES or None)
 
 	if request.method == 'POST':
@@ -66,7 +66,7 @@ def party_create(request):
 			'form':form,
 		}	
 		# return render(request, 'community/party_form.html', content)
-		return render(request, 'community_ce2.html', content)
+		return render(request, 'community_create.html', content)
 
 '''def choice_create(request):
 	form=ChoiceModelForm(request.POST or None)
@@ -80,6 +80,27 @@ def party_create(request):
 	}
 	response = render(request, 'community/choice_form.html', content)
 	return response'''
+
+@login_required
+def meetup_edit(request, meetup_id):
+	
+	org_meetup = get_object_or_404(Meetup, pk=meetup_id)
+	send_form = MeetupModelForm(instance=org_meetup)
+
+	if request.method == 'POST':
+		form = MeetupModelForm(request.POST, request.FILES, instance=org_meetup)
+		if form.is_valid():
+			obj = form.save(commit=False)
+			obj.user = request.user
+			obj.save()
+			return redirect('community:meetups')
+	else:		
+		content={
+			'form':send_form,
+		}	
+		# return render(request, 'community/party_form.html', content)
+		return render(request, 'community_ce2.html', content)
+
 
 @login_required # TODO: Ajax로 처리하기
 def party_likes(request, pk):

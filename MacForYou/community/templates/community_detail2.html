@@ -2,10 +2,6 @@
 {% load static %}
 
 {% block custom_css_for_page %}
-<!-- <script type="text/javascript" src="/bower_components/semantic-ui-calendar/dist/calendar.min.js"></script> -->
-
-<!-- <link rel="stylesheet" href="/bower_components/semantic-ui-calendar/dist/calendar.min.css" /> -->
-<link rel="stylesheet" href="{% static 'calendar.min.css' %}" />
 <style type="text/css">
 	body {
 	  background-color: #E2ED99;
@@ -27,8 +23,7 @@
     <div class="column">
         <h2 class="ui icon header">
             <i class="users icon"></i>
-            <div class="content">Create Meetup</div>
-            <div class="sub header">Create your own meetup</div>
+            <div class="content">Meetup</div>
         </h2>
         
         <form class="ui large form" id="meetup_create_form" action="{% url 'community:meetup_create' %}" method="post" autocomplete="off">
@@ -86,16 +81,7 @@
 {% endblock content %}
 
 {% block custom_script %}
-<script type="text/javascript" src="{% static 'calendar.min.js' %}"></script>
 <script type="text/javascript">
-	// $('.tiny.modal.create_review').modal('show');
-    // $('#meetup_datetime').calendar();
-    $("#create_meetup_submit_btn").click(function() {
-        $("#meetup_create_form").submit();
-    });
-    $("#create_meetup_cancel_btn").click(function() {
-        window.location.href = '{% url 'community:meetups' %}';
-    });
 
 </script>
 {% endblock custom_script %}
