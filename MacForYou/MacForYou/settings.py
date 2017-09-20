@@ -65,6 +65,9 @@ INSTALLED_APPS = [
 
 ]
 
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
