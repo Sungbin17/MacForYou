@@ -91,6 +91,7 @@ def beer_type(request, slug):
 
 
 def beer_detail(request, slug):
+    #TODO : diff my review and others
     beer = get_object_or_404(Beer, name__iexact=slug)
     review_list = BeerReview.objects.filter(beer_id=beer.id)
     recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:3]
@@ -115,10 +116,7 @@ def beer_detail(request, slug):
         else:
             modifiable.append(True)
 
-    form = ReviewForm()
-
     context = {
-        'form': form,
         'beer': beer,
 
         # 'review_list': review_list,

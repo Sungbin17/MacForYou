@@ -20,19 +20,29 @@
 
 {% block content %}
 <div class="ui middle aligned center aligned grid">
-    <div class="column">
-        <h2 class="ui icon header">
-            <i class="users icon"></i>
-            <div class="content">Meetup</div>
-        </h2>
+	<div class="column">
+     	<h2 class="ui icon header">
+     		<i class="users icon"></i>
+         		<div class="content">Meetup</div>
+         		<div class="sub header">{{meetup.title}}</div>
+         	</h2>
+
+		<div class="content">
+			<p>Lets meet at {{meetup.place}} </p>
+			<p>at {{meetup.date_meetup}}</p>
+			<p>{{meetup.content|linebreaks}}</p>
+			<p>join us at {{meetup.kakao_open_chat_link}}</p>
+
+			<div class="ui large red cancel inverted button" id="create_meetup_cancel_btn">Cancel</div>
+		</div>
+    	</div>
         
-        <form class="ui large form" id="meetup_create_form" action="{% url 'community:meetup_create' %}" method="post" autocomplete="off">
+        <!-- <form class="ui large form" id="meetup_create_form" action="{% url 'community:meetup_create' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <div class="ui stacked segment">            
                 <div class="required field">
                     {{form.title.errors}}
                     <div class="ui left icon input">
-                        <!-- <label for="{{form.title.id_for_label}}">Title</label> -->
                         <i class="write icon"></i>
                         <input name="{{ form.title.html_name }}" id="{{form.title.id_for_label}}" placeholder="meetup title">{{form.title.value|default_if_none:''}}</input>
                     </div>
@@ -40,8 +50,6 @@
                 <div class="required field">
                     {{form.date_meetup.errors}}
                      <div class="ui calendar" id="meetup_datetime">
-
-                        <!-- <label for="{{form.date_meetup.id_for_label}}">DATE</label> -->
                         <div class="ui left icon input">
                             <i class="calendar icon"></i>                     
                             <input type="text" name="{{ form.date_meetup.html_name }}" id="{{form.date_meetup.id_for_label}}" placeholder="date time of meetup">{{form.date_meetup.value|default_if_none:''}}</input>
@@ -51,15 +59,12 @@
                 <div class="required field">
                     {{form.content.errors}}
                     <div class="ui left icon input">
-                        <!-- <label for="{{form.content.id_for_label}}">Content</label> -->
-                        
                         <textarea name="{{ form.content.html_name }}" rows="3" id="{{form.content.id_for_label}}" placeholder="detail of meetup">{{form.content.value|default_if_none:''}}</textarea>
                     </div>
                 </div>
                 <div class="required field">
                     {{form.place.errors}}
                     <div class="ui left icon input">
-                        <!-- <label for="{{form.place.id_for_label}}">Place</label> -->
                         <i class="map outline icon"></i>
                         <input name="{{ form.place.html_name }}" id="{{form.place.id_for_label}}" placeholder="place">{{form.place.value|default_if_none:''}}</input>
                     </div>
@@ -67,7 +72,6 @@
                 <div class="field">
                     {{form.kakao_open_chat_link.errors}}
                     <div class="ui left icon input">
-                        <!-- <label for="{{form.kakao_open_chat_link.id_for_label}}">KAKAO OpenChat</label> -->
                         <i class="comments outline icon"></i>
                         <input name="{{ form.kakao_open_chat_link.html_name }}" id="{{form.kakao_open_chat_link.id_for_label}}" placeholder="KAKAO OpenChat Link">{{form.kakao_open_chat_link.value|default_if_none:''}}</input>
                     </div>
@@ -75,7 +79,7 @@
                 <div class="ui large red cancel inverted button" id="create_meetup_cancel_btn">Cancel</div>
                 <div class="ui large green submit inverted button" id="create_meetup_submit_btn">Submit</div>                
             </div>
-        </form>
+        </form> -->
     </div>
 </div>
 {% endblock content %}
