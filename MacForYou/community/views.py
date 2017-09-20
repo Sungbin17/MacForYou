@@ -25,7 +25,8 @@ def meetup_view(request):
 def meetup_detail(request, meetup_id):
 	meetup = get_object_or_404(Meetup, pk=meetup_id)
 	# return render(request, 'community/party_detail.html', {'meetup': meetup})
-	return render(request, 'community_detail.html', {'meetup': meetup})
+	print(meetup)
+	return render(request, 'community_detail2.html', {'meetup': meetup})
 
 
 def vote(request, party_id):
