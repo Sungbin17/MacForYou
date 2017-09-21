@@ -6,17 +6,7 @@ from allauth.account.forms import LoginForm
 from django.forms import ModelForm
 
 
-from django.contrib.auth import get_user_model
-from django import forms
 
-class SignupForm(forms.ModelForm):
-    email = forms.CharField(max_length=30, label='email')
-    uid = forms.CharField(max_length=30, label='uid')
-
-    def signup(self, request, user):
-        user.email = self.cleaned_data['email']
-        user.uid = self.cleaned_data['uid']
-        user.save()
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -36,3 +26,6 @@ class LoginForm(AuthenticationForm):
     pass
 
 
+
+class SignupForm(UserCreationForm):
+    pass

@@ -1,12 +1,31 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from allauth.socialaccount.templatetags.socialaccount import get_providers
+from django.http import HttpResponse
+from django.shortcuts import redirect, render, resolve_url
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.auth.views import login as auth_login
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.contrib.auth.views import login as auth_login
+from .models import UserProfiles
 from .forms import UserForm, LoginForm, SignupForm
+from django.contrib.auth.forms import UserCreationForm
+# Create your views here.
+
+def signup(request):
+	if request.method =='POST':
+		form= UserCreationForm(request.POST)
+		if form.is_valid():
+			user=form.save()
+			return redirect(settings.LOGIN_URL)
+	else:
+		form=UserCreationForm()
+	return render(request, 'accounts/signup_form.html', {
+		'form':form,
+		})
+
 
 @login_required
 def profile(request):
@@ -26,20 +45,4 @@ def login(request):
         authentication_form=LoginForm,
         template_name='accounts/login_form.html',
         extra_context={'providers': providers})
-
-def signup(request):
-    if request.method=='POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            new_user = User.objects.create_user(**form.cleaned_data)
-            new_user2 = UserProfiles(user=new_user, score=0, number_of_posts=0).save()
-            auth_login(request, new_user)
-            return redirect(settings.LOGIN_REDIRECT_URL)
-        else:
-            return HttpResponse('사용자명이 이미 존재합니다.')
-    else:
-        form=SignupForm()
-    return render(request, 'accounts/signup_form.html', {
-        'form':form,
-        })
 
