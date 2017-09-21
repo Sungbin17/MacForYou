@@ -11,7 +11,7 @@ from django.forms import ModelForm
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password', 'email']
 
 
     # 글자수 제한
@@ -25,7 +25,8 @@ class UserForm(forms.ModelForm):
 class LoginForm(AuthenticationForm):
     pass
 
-
-
 class SignupForm(UserCreationForm):
-    pass
+    uid= forms.IntegerField()
+
+    class Meta(UserCreationForm.Meta):
+        fields= UserCreationForm.Meta.fields + ('email',)
