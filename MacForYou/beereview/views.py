@@ -54,8 +54,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         context = {}
-        return redirect('beers:beers_list')
-        # return render(request, 'index.html', context)
+        # return redirect('beers:beers_list')
+        return render(request, 'index.html', context)
 
 
 def beer_type(request, slug):
