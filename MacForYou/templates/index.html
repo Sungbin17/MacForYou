@@ -2,36 +2,116 @@
 {% load static %}
 
 {% block custom_css_for_page %}
+  <style type="text/css">
+    .masthead.segment {
+      min-height: 420px;
+      padding: 1em 0em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 2em;
+      margin-bottom: 0em;
+      font-size: 3em;
+      font-weight: normal;
+    }
+  </style>
 {% endblock custom_css_for_page %}
 
 {% block content %}
-<div class="pusher">
+<div class="pusher" style="margin-top: 53.6px;">
   <div class="ui inverted vertical masthead center aligned segment">
-    <div class="ui container">
-      <div class="ui large secondary inverted pointing menu">
-        <a class="toc item">
-          <i class="sidebar icon"></i>
-        </a>
-        <a class="active item">Home</a>
-        <a class="item">Work</a>
-        <a class="item">Company</a>
-        <a class="item">Careers</a>
-        <div class="right item">
-          <a class="ui inverted button">Log in</a>
-          <a class="ui inverted button">Sign Up</a>
-        </div>
-      </div>
-    </div>
     <div class="ui text container">
       <h1 class="ui inverted header">
-        Imagine-a-Company
+        Imagine-a-Beer
       </h1>
-      <h2>Do whatever you want when you want to.</h2>
+      <h2>That fits YOU Just Right</h2>
       <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
     </div>
-
   </div>
-  <div class="ui vertical stripe segment">
+  <div class="ui vertical stripe segment" style="padding-top: 30px; padding-bottom: 30px;">
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="center aligned column">
+          <h2 class="ui header">Recent Reviews</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="ui four doubling cards">
+            <div class="ui card">
+              <div class="content">
+                <div class="right floated meta">14h</div>
+                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
+              </div>
+              <div class="image">
+                <img>
+              </div>
+              <div class="content">
+                  godd beer
+              </div>
+            </div>
+            <div class="ui card">
+              <div class="content">
+                <div class="right floated meta">14h</div>
+                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
+              </div>
+              <div class="image">
+                <img>
+              </div>
+              <div class="content">
+                  godd beer
+              </div>
+            </div>
+            <div class="ui card">
+              <div class="content">
+                <div class="right floated meta">14h</div>
+                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
+              </div>
+              <div class="image">
+                <img>
+              </div>
+              <div class="content">
+                  godd beer
+              </div>
+            </div>
+            <div class="ui card">
+              <div class="content">
+                <div class="right floated meta">14h</div>
+                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
+              </div>
+              <div class="image">
+                <img>
+              </div>
+              <div class="content">
+                  godd beer
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+<!--       <div class="row">
+        <div class="ui three stackable cards">
+          <div class="card">
+            <div class="image">
+              <img src="/images/avatar/large/veronika.jpg">
+            </div>
+          </div>
+          <div class="card">
+            <div class="image">
+              <img src="/images/avatar/large/stevie.jpg">
+            </div>
+          </div>
+          <div class="card">
+            <div class="image">
+              <img src="/images/avatar/large/steve.jpg">
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+
+<!--   <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
       <div class="row">
         <div class="eight wide column">
@@ -50,7 +130,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="ui vertical stripe quote segment">
     <div class="ui equal width stackable internally celled grid">
       <div class="center aligned row">
