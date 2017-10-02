@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-from beereview.views import IndexView, beer_type
+from beereview.views import  beer_type, index_view
 
 # def root(request):
 #     return render(request, 'root.html')
@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^beers/', include('beereview.urls', namespace='beers')),
     # url(r'^accounts/', include('allauth.urls')),
     url(r'^community/', include('community.urls')),
-    url(r'^$', IndexView.as_view()),
+    url(r'^$', index_view, name='index'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

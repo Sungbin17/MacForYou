@@ -57,6 +57,30 @@ class IndexView(View):
         # return redirect('beers:beers_list')
         return render(request, 'index.html', context)
 
+def index_view(request):
+    context_object = []
+    recent_beereview = BeerReview.objects.select_related('beer', 'user').order_by('-created')[:4]
+
+    for beereview in recent_beereview:
+        append_beereview = beereview
+        append_user = beereview.user
+        append_beer = beereview.beer
+
+        append_context = { 
+            'beereview'     : append_beereview,
+            'review_user'   : append_user,
+            'review_beer'   : append_beer,
+        }
+        
+        context_object.append(append_context)
+        
+    context = {
+        'recents_reviews': context_object
+    }
+    return render(request, 'index.html', context)
+
+
+
 
 def beer_type(request, slug):
 
