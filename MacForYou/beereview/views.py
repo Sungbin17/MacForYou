@@ -51,12 +51,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # 		return HttpResponse('debuging')
 
 
-class IndexView(View):
-    def get(self, request, *args, **kwargs):
-        context = {}
-        # return redirect('beers:beers_list')
-        return render(request, 'index.html', context)
-
 def index_view(request):
     context_object = []
     recent_beereview = BeerReview.objects.select_related('beer', 'user').order_by('-created')[:4]
@@ -73,7 +67,7 @@ def index_view(request):
         }
         
         context_object.append(append_context)
-        
+        print(context_object)
     context = {
         'recents_reviews': context_object
     }

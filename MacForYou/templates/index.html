@@ -37,54 +37,20 @@
       <div class="row">
         <div class="column">
           <div class="ui four doubling cards">
+            {% for recents_review in recents_reviews %}
             <div class="ui card">
               <div class="content">
-                <div class="right floated meta">14h</div>
-                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
+                <div class="right floated meta">{{ recents_review.beereview.created|timesince }}</div>
+                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> {{ recents_review.review_user.username}}
               </div>
               <div class="image">
-                <img>
+                <img src="{{ recents_review.review_beer.beer_image.main.url }}">
               </div>
               <div class="content">
-                  godd beer
+                  {{ recents_review.beereview.comment }}
               </div>
             </div>
-            <div class="ui card">
-              <div class="content">
-                <div class="right floated meta">14h</div>
-                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
-              </div>
-              <div class="image">
-                <img>
-              </div>
-              <div class="content">
-                  godd beer
-              </div>
-            </div>
-            <div class="ui card">
-              <div class="content">
-                <div class="right floated meta">14h</div>
-                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
-              </div>
-              <div class="image">
-                <img>
-              </div>
-              <div class="content">
-                  godd beer
-              </div>
-            </div>
-            <div class="ui card">
-              <div class="content">
-                <div class="right floated meta">14h</div>
-                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Elliot
-              </div>
-              <div class="image">
-                <img>
-              </div>
-              <div class="content">
-                  godd beer
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>        
       </div>
