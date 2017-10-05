@@ -5,8 +5,8 @@
       MacForYou
     </a>
     <a class="item">ABOUT</a>
-    <a class="item">TOP50s</a>
-    <a class="item">MeetUPs</a>
+    <a class="item" href="{% url 'beers:beers_list' %}">TOP20s</a>
+    <a class="item" href="{% url 'community:meetups' %}">MeetUPs</a>
     <div class="right menu">
       <div class="item">
         <div class="ui fluid icon input beer search">

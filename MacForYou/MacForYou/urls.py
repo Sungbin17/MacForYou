@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^beertype/(?P<slug>[\w-]+)/$', beer_type, name='beer_type'),
     url(r'^beers/', include('beereview.urls', namespace='beers')),
     # url(r'^accounts/', include('allauth.urls')),
-    url(r'^community/', include('community.urls')),
+    url(r'^community/', include('community.urls', namespace='community')),
     url(r'^$', index_view, name='index'),
 ] 
 

@@ -67,7 +67,6 @@ def index_view(request):
         }
         
         context_object.append(append_context)
-        print(context_object)
     context = {
         'recents_reviews': context_object
     }
