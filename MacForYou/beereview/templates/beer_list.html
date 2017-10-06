@@ -5,7 +5,8 @@
 <style type="text/css">
 
 .main.container {
-    margin-top: 5em;
+    margin-top: 3.5em;
+    padding-bottom: 3em;
 }
 </style>
 {% endblock custom_css_for_page %} 
@@ -14,7 +15,7 @@
 <div class="ui main container">
     <div class="ui hidden divider"></div>
   <h3 class="ui dividing header">Top 20 List</h3>
-  <div class="ui large middle aligned divided list">
+  <div class="ui big middle aligned divided list">
     {% for beer in beer_list %}
     <div class="item">
       <div class="right floated content">
@@ -50,6 +51,10 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
 
 {% block custom_script %}
   <script type="text/javascript"> 

@@ -13,11 +13,18 @@
       font-size: 3em;
       font-weight: normal;
     }
+    .pusher {
+      margin-top: 49px;
+    }
   </style>
 {% endblock custom_css_for_page %}
 
+{% block nav %}
+    {% include "nav.html" %}
+{% endblock %}
+
 {% block content %}
-<div class="pusher" style="margin-top: 49px;">
+<div class="pusher">
   <div class="ui inverted vertical masthead center aligned segment">
     <div class="ui text container">
       <h1 class="ui inverted header">
@@ -36,16 +43,16 @@
       </div>
       <div class="row">
         <div class="column">
-          <div class="ui four doubling cards">
+          <div class="ui four stackable cards">
             {% for recents_review in recents_reviews %}
             <div class="ui card">
               <div class="content">
                 <div class="right floated meta">{{ recents_review.beereview.created|timesince }}</div>
                 <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> {{ recents_review.review_user.username}}
               </div>
-              <div class="image">
+              <a class="image" href="{% url 'beers:beer_detail' recents_review.review_beer.name %} ">
                 <img src="{{ recents_review.review_beer.beer_image.main.url }}">
-              </div>
+              </a>
               <div class="content">
                   {{ recents_review.beereview.comment }}
               </div>
@@ -116,6 +123,10 @@
   </div> -->
 </div>
 {% endblock content %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
 
 {% block custom_script %}
 {% endblock custom_script %}

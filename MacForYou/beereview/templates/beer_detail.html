@@ -5,15 +5,15 @@
 <style type="text/css">
 
 .main.container {
-    margin-top: 3em;
+    margin-top: 2em;
+    margin-bottom: 7px;
 }
-
 
 </style>
 {% endblock custom_css_for_page %} 
 
 {% block content %}
-<div class="ui eight column doubling stackable grid main container">
+<div class="ui eight column stackable grid main container">
     <div class="ten wide column">
         <div class="ui items">
             <div class="item">
@@ -101,12 +101,12 @@
     <div class="six wide column">
         <div class="ui raised segment">
             <h3> Other Beer Recom</h3>
-            <div class="ui cards">
+            <div class="ui two cards">
                 {% for recom_beer in recom_beers %}
                 <div class="ui orange centered card">
-                    <div class="image">
+                    <a class="image" href="{% url 'beers:beer_detail' recom_beer.name %}">
                         <img class="ui small circular image" src="{{ recom_beer.beer_image.main.url }}">
-                    </div>
+                    </a>
                     <div class="content">
                         <a class="header" href="{% url 'beers:beer_detail' recom_beer.name %}" style="font-size: 1.18571429em;">{{ recom_beer.name }}</a>
                         <div class="meta">
@@ -178,30 +178,35 @@
             </div>
         </div>
     </div>
-    {% endblock content %} 
+</div>
+{% endblock content %}
 
-    {% block custom_script %}
-    <script type="text/javascript">
-    $('#delete_review_yes').click(function() {
-        $("#delete_form").submit();
-    });
-    $('.ui.star.rating.review.result').rating('disable');
-    $('.ui.star.rating.recom').rating('disable');
-    // $("#Review_Write_Btn").click(function() {
-    //     // $('.tiny.modal').modal({ blurring: true }).modal('show');
-    //     $('.tiny.modal.create_review').modal('show');
-    //     $('.ui.selection.dropdown').dropdown();
-    // });
-    $("#review_submit_btn").click(function() {
-        $("#review_form").submit();
-    });
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
 
-    $("#review_del_btn").click(function() {
-        $('.tiny.modal.del_review').modal('show');
-    });
+{% block custom_script %}
+<script type="text/javascript">
+$('#delete_review_yes').click(function() {
+    $("#delete_form").submit();
+});
+$('.ui.star.rating.review.result').rating('disable');
+$('.ui.star.rating.recom').rating('disable');
+// $("#Review_Write_Btn").click(function() {
+//     // $('.tiny.modal').modal({ blurring: true }).modal('show');
+//     $('.tiny.modal.create_review').modal('show');
+//     $('.ui.selection.dropdown').dropdown();
+// });
+$("#review_submit_btn").click(function() {
+    $("#review_form").submit();
+});
 
-    $("#Login_to_Write_Btn").click(function() {
-        window.location.href = '/accounts/login';
-    });
-    </script>
-    {% endblock custom_script %}
+$("#review_del_btn").click(function() {
+    $('.tiny.modal.del_review').modal('show');
+});
+
+$("#Login_to_Write_Btn").click(function() {
+    window.location.href = '/accounts/login';
+});
+</script>
+{% endblock custom_script %}

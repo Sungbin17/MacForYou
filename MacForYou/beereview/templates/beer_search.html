@@ -13,7 +13,7 @@
 {% block content %}
 <div class="ui main container">
     <div class="ui hidden divider"></div>
-  <h3 class="ui dividing header ">Search Result of {{ search_text }}</h3>
+  <h3 class="ui dividing header ">Search Result of "{{ search_text }}"</h3>
   <div class="ui large middle aligned divided list ">
     {% for beer in beer_list %}
     <div class="item ">
@@ -50,6 +50,10 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
 
 {% block custom_script %}
   <script type="text/javascript"> 
