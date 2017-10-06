@@ -110,7 +110,7 @@ def beer_type(request, slug):
 def beer_detail(request, slug):
     #TODO : diff my review and others
     beer = get_object_or_404(Beer, name__iexact=slug)
-    review_list = BeerReview.objects.filter(beer_id=beer.id)
+    review_list = BeerReview.objects.filter(beer_id=beer.id).order_by('-created')
     recom_beers = Beer.objects.exclude(name__iexact=slug).order_by('-updated')[:2]
 
     page = request.GET.get('page', 1)

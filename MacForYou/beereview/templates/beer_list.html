@@ -3,19 +3,30 @@
 
 {% block custom_css_for_page %}
 <style type="text/css">
+  .main.container {
+      margin-top: 3.5em;
+      padding-bottom: 3em;
+  }
 
-.main.container {
-    margin-top: 3.5em;
-    padding-bottom: 3em;
-}
+  @media only screen and (max-width: 767px){
+    .main.container{
+      margin-top: 3em;
+      padding-bottom: 2em;
+    }
+
+    .ui.main.container.beerlist {
+      margin-left: 0.7em !important;
+      margin-right: 0.7em !important;
+    }
+  }
 </style>
 {% endblock custom_css_for_page %} 
 
 {% block content %}
-<div class="ui main container">
+<div class="ui main container beerlist">
     <div class="ui hidden divider"></div>
   <h3 class="ui dividing header">Top 20 List</h3>
-  <div class="ui big middle aligned divided list">
+  <div class="ui large middle aligned divided list">
     {% for beer in beer_list %}
     <div class="item">
       <div class="right floated content">

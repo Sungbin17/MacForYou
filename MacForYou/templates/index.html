@@ -5,7 +5,10 @@
   <style type="text/css">
     .masthead.segment {
       min-height: 420px;
-      padding: 1em 0em;
+      padding: 1em 0em;          
+    }
+    .ui.vertical.masthead.center.aligned.segment{
+      background-image: url("{% static 'MacForYou_Main_Img.jpg' %}");
     }
     .masthead h1.ui.header {
       margin-top: 2em;
@@ -15,7 +18,34 @@
     }
     .pusher {
       margin-top: 49px;
+      flex: 1 0 auto;
     }
+
+    @media only screen and (max-width: 700px) {
+/*      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }*/
+      .masthead.segment {
+        min-height: 400px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+        margin-bottom: 3em;
+      }
+    }
+
   </style>
 {% endblock custom_css_for_page %}
 
@@ -25,9 +55,9 @@
 
 {% block content %}
 <div class="pusher">
-  <div class="ui inverted vertical masthead center aligned segment">
+  <div class="ui vertical masthead center aligned segment">
     <div class="ui text container">
-      <h1 class="ui inverted header">
+      <h1 class="ui header">
         Imagine-a-Beer
       </h1>
       <h2>That fits YOU Just Right</h2>
