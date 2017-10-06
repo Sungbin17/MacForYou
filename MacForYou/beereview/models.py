@@ -42,7 +42,7 @@ class Beer(models.Model):
     beertype = models.ForeignKey(BeerType, on_delete=models.SET_NULL, null=True, related_name='beertype_beers')
     company = models.ForeignKey(Production_Company, on_delete=models.SET_NULL, null=True, related_name='production_beers')
     overall_score = models.DecimalField(max_digits=10, decimal_places=9, default=0)
-    beer_image=StdImageField(upload_to=beer_img_upload_location, blank=True, variations={'avatar':(32,32), 'main':(270,270)})  
+    beer_image=StdImageField(upload_to=beer_img_upload_location, blank=True, variations={'avatar':(32,32, True), 'main':(260,260, True)})  
     total_sum = models.DecimalField(max_digits=30, decimal_places=2, default=0)
     reviews_count = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)

@@ -66,7 +66,7 @@ beer6 = Beer(name="SingHA", nation="Thailand", abv =5.0, description = "thailand
 
 beertypeforbeer = BeerType.objects.get(name="Pale-Lager")
 beercompany = Production_Company.objects.get(name="Taiwan Tobacco and Liquor Corp")
-beer7 = Beer(name="Taiwan-Beer-Gold-Medal", nation="Taiwan", abv =5.0, description = "taiwan pride", beertype = beertypeforbeer, company = beercompany)
+beer7 = Beer(name="Taiwan-Gold-Medal", nation="Taiwan", abv =5.0, description = "taiwan pride", beertype = beertypeforbeer, company = beercompany)
 
 
 beer1.save()

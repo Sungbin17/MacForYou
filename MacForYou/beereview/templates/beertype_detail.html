@@ -5,7 +5,8 @@
 <style type="text/css">
 
 .main.container {
-    margin-top: 3em;
+    margin-top: 2em;
+    margin-bottom: 7px;
 }
 </style>
 {% endblock custom_css_for_page %} 
@@ -78,12 +79,12 @@
   <img class="ui medium circular image " src="/images/wireframe/square-image.png ">
   <img class="ui medium circular image " src="/images/wireframe/square-image.png ">
   <img class="ui medium circular image " src="/images/wireframe/square-image.png "> -->
-  <div class="ui cards ">
+  <div class="ui two cards ">
    {% for recom_type in recom_types %}
    <div class="ui orange centered card">
-    <div class="image">
+    <a class="image" href="{% url 'beer_type' recom_type.name %}">
       <img class="ui small circular image " src="{% static 'a.jpg' %} ">
-    </div>
+    </a>
     <div class="content">
       <a class="header" href="{% url 'beer_type' recom_type.name %}" style="font-size: 1.18571429em;">{{ recom_type.name }}</a>
       <!-- <div class="meta ">
@@ -97,8 +98,13 @@
  </div>
  </div>
 </div>
+</div>
 
 {% endblock content %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
 
 {% block custom_script %}
   <script type="text/javascript"> 
