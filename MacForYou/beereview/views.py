@@ -72,9 +72,6 @@ def index_view(request):
     }
     return render(request, 'index.html', context)
 
-
-
-
 def beer_type(request, slug):
 
     beer_type = get_object_or_404(BeerType, name__iexact=slug)
@@ -154,6 +151,18 @@ def beers_list(request):
     }
     return render(request, 'beer_list.html', context)
 
+def user_review_list(request, pk):
+    # get user all review
+
+    user_reviews = BeerReview.objects.select_related('beer').filter(user=pk).order_by('-overall_score')
+    first_review = user_reviews.first()
+    user_name = first_review.user
+
+    context = {
+        'user_name': user_name,
+        'user_reviews_list': user_reviews
+    }
+    return render(request, 'user_review_list.html', context)
 
 def review_list(request):
     reviews = BeerReview.objects.filter()
