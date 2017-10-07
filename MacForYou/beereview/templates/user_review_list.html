@@ -1,0 +1,56 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block custom_css_for_page %}
+<style type="text/css">
+  .main.container {
+      margin-top: 3.5em;
+      padding-bottom: 3em;
+  }
+
+  @media only screen and (max-width: 767px){
+    .main.container{
+      margin-top: 3em;
+      padding-bottom: 2em;
+    }
+
+    .ui.main.container.beerlist {
+      margin-left: 0.7em !important;
+      margin-right: 0.7em !important;
+    }
+  }
+</style>
+{% endblock custom_css_for_page %} 
+
+{% block content %}
+<div class="ui main container beerlist">
+    <div class="ui hidden divider"></div>
+  <h3 class="ui dividing header">"{{ user_name }}" Review List</h3>
+  <div class="ui large middle aligned divided list">
+    {% for user_review in user_reviews_list %}
+    <div class="item">
+      <div class="right floated content">
+        <div class="ui star rating review result" data-rating="{{ user_review.beer.overall_score|floatformat:'0' }}" data-max-rating="5"></div>
+        <p style="text-align: right; ">{{ user_review.beer.overall_score|floatformat:2 }}</p>
+      </div>      
+      <img class="ui avatar image" src="{{ user_review.beer.beer_image.avatar.url }}">
+      <div class="content">
+        <a class="header" href="{% url 'beers:beer_detail' user_review.beer.name %}">{{ user_review.beer.name }}
+        <!-- <div class="ui star rating right review result " data-rating="3 " data-max-rating="5 "></div> --></a>
+        <p> {{ user_review.comment|truncatewords:10 }} </p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
+
+{% block custom_script %}
+  <script type="text/javascript"> 
+    $('.ui.star.rating.review.result').rating('disable');   
+  </script>
+{% endblock custom_script %}
