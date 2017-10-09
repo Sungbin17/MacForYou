@@ -50,19 +50,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
+
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.kakao',
-    'allauth.socialaccount.providers.naver',
-    'allauth.socialaccount.providers.google',
+    'myaccount',
     'beereview',
     'community',
     'datetimewidget',
-
 ]
 
 
@@ -125,38 +123,44 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+# SOCIALACCOUNT_PROVIDERS = {
+#     'facebook': {
+#         'METHOD': 'oauth2',
+#         'SCOPE': [
+#             'email',
+#             'public_profile',
+#             'user_friends'
+#         ],
+#         'AUTH_PARAMS': {
+#             'auth_type': 'reauthenticate'
+#         },
+#         'FIELDS': [
+#             'id',
+#             'email',
+#             'name',
+#             'first_name',
+#             'last_name',
+#             'verified',
+#             'locale',
+#             'timezone',
+#             'link',
+#             'gender',
+#             'updated_time'
+#         ],
+#         'EXCHANGE_TOKEN': True,
+#         'LOCALE_FUNC': lambda request: 'en_US',
+#         'VERIFIED_EMAIL': True,
+#         'VERSION': 'v2.4'
+#     }
+# }
+
 SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': [
-            'email',
-            'public_profile',
-            'user_friends'
-        ],
-        'AUTH_PARAMS': {
-            'auth_type': 'reauthenticate'
-        },
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'
-        ],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request: 'en_US',
-        'VERIFIED_EMAIL': True,
-        'VERSION': 'v2.4'
+    'kakao': {
+        'METHOD': 'oauth2',        
+        'VERIFIED_EMAIL': True
     }
 }
-
 
 AUTHENTICATION_BACKENDS = (
 
@@ -168,24 +172,35 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-
 SITE_ID = 1
 
-### 로그인 관련 ###
-LOGIN_URL = '/accounts/login'
+# EMAIL_BACKEND added for after signup connection error workaround
+# go to link below and search for "When I sign up I run into connectivity errors"
+# http://django-allauth.readthedocs.io/en/latest/faq.html 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-AUTH_USER_MODEL = 'auth.User'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_SIGNUP_FORM_CLASS = 'myaccount.forms.SignupForm'
 
-# 이메일 확인을 하지 않음
+SOCIALACCOUNT_AUTO_SIGNUP = False
+# SOCIALACCOUNT_FORMS = {'signup': 'myaccount.forms.SocialCustomSignupForm'}
 
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['phone','name']
+# usually logout is two step 
+# 1. click to logout 2. ask you again to really logout 3. loged out
+# this option make it one step
+# 1. click to logout 2. you are logged out
+ACCOUNT_LOGOUT_ON_GET = True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'ko'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -211,6 +226,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, '..', 'staticfiles')
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
 
