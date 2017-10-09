@@ -48,7 +48,7 @@
         <img src="/images/avatar/small/matt.jpg">
       </a>
                 <div class="content">
-                    <a class="author" href="{% url 'user_review_list' paged_review.user.id  %}">{{ paged_review.user }} ( Score: {{ paged_review.overall_score|floatformat:1 }} )</a>
+                    <a class="author" href="{% url 'user_review_list' paged_review.user.id  %}">{{ paged_review.user.profile.nickname }} ( Score: {{ paged_review.overall_score|floatformat:1 }} )</a>
                     <div class="metadata">
                         <span class="date">{{ paged_review.updated|timesince}}</span>
                         <!-- <span class="date">Today at 5:42PM</span> -->

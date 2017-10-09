@@ -53,16 +53,18 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index_view(request):
     context_object = []
-    recent_beereview = BeerReview.objects.select_related('beer', 'user').order_by('-created')[:4]
+    recent_beereview = BeerReview.objects.select_related('beer', 'user__profile').order_by('-created')[:4]
 
     for beereview in recent_beereview:
         append_beereview = beereview
         append_user = beereview.user
+        append_user_profile = beereview.user.profile
         append_beer = beereview.beer
 
         append_context = { 
             'beereview'     : append_beereview,
             'review_user'   : append_user,
+            'review_user_profile' : append_user_profile,
             'review_beer'   : append_beer,
         }
         

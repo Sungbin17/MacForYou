@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load socialaccount %}
 
 {% block custom_css_for_page %}
   <style type="text/css">
@@ -78,7 +79,9 @@
             <div class="ui card">
               <div class="content">
                 <div class="right floated meta">{{ recents_review.beereview.created|timesince }}</div>
-                <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> {{ recents_review.review_user.username}}
+                {% get_social_accounts recents_review.review_user as accounts %}                
+                <img class="ui avatar image" src="{{accounts.kakao.0.get_avatar_url}}"> {{ recents_review.review_user_profile.nickname}}
+                <p> it is very risky when kakao returns no properties...</p>
               </div>
               <a class="image" href="{% url 'beers:beer_detail' recents_review.review_beer.name %} ">
                 <img src="{{ recents_review.review_beer.beer_image.main.url }}">
