@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load account socialaccount %}
+
+{% block custom_css_for_page %}
+<style type="text/css">
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+</style>
+{% endblock custom_css_for_page %}
+
+{% block content %}
+<div class="ui middle aligned center aligned grid">
+ <div class="column">
+   <h2 class="ui icon header">
+    <i class="users icon"></i>
+    <div class="content">Welcom to MacForYou</div>
+    <div class="sub header">Final step to Signup</div>    
+   </h2>
+
+    <form class="ui large form" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+      {% csrf_token %}
+      <div class="ui stacked segment">
+        <div class="field">
+          {{form.email.errors}}
+          <input type="hidden" name="{{ form.email.html_name }}" id="{{ form.emil.id_for_label }}" value="{{form.email.value}}">
+        </div>
+        <div class="field">
+          {{form.nickname.errors}}
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="{{ form.nickname.html_name }}" id="{{ form.nickname.id_for_label }}" maxlength="{{ form.nickname.field.max_length }}" placeholder="Your nickname" autocomplete="off">
+          </div>
+        </div>
+
+        <button type="submit" class="ui fluid large teal submit button">SignUp</button>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>
+<!--     <div class="ui message">
+      New to us? <a href="/accounts/signup">Sign Up</a>
+    </div> -->
+ </div>
+</div>
+{% endblock content %}
