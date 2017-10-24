@@ -16,8 +16,6 @@
         </div>
       </div>
       {% load socialaccount %}
-      {% get_providers as socialaccount_providers %}
-      {% for provider in socialaccount_providers %}
       {% if user.is_authenticated %}
       <div class="item logout">
         <a class="ui kakao button" href="/accounts/logout/?next={{request.path}} "><i class="comment icon"></i>Logout</a>
@@ -26,13 +24,12 @@
         <!-- <a class="ui item navlogout">Logout</a> -->
       {% else %}
       <div class="item login">
-        <a class="ui kakao button" href="{% provider_login_url provider.id next=request.path %}"><i class="comment icon"></i>LogIn</a>
+        <a class="ui kakao button" href="{% provider_login_url 'kakao' next=request.path %}"><i class="comment icon"></i>LogIn</a>
 <!--         <a class="ui kakao button" href="/accounts/kakao/login/?process=login&next=/beers"><i class="comment icon"></i>LogIn</a> -->
       </div>
         <!-- <a class="ui small blue basic button navlogin">Login</a> -->
         <!-- <a class="ui item navlogin">Login</a> -->
       {% endif %}
-      {% endfor %}
     </div>
   </div>
 </div>

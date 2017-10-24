@@ -1,5 +1,6 @@
 {% extends "base.html" %} 
 {% load static %} 
+{% load socialaccount %}
 
 {% block custom_css_for_page %}
 <style type="text/css">
@@ -206,7 +207,7 @@ $("#review_del_btn").click(function() {
 });
 
 $("#Login_to_Write_Btn").click(function() {
-    window.location.href = '/accounts/kakao/login/?process=login';
+    window.location.href = '{% provider_login_url "kakao" next=request.path %}';
 });
 </script>
 {% endblock custom_script %}
